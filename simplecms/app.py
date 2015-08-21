@@ -7,7 +7,7 @@ from peewee import *
 from .init import app
 
 
-DATABASE = 'tweepee.db'
+DATABASE = 'simplecms-dev.db'
 SECRET_KEY = 'sfserxcg8ge25*r=x&amp;+5$0kn=-#log$pt^#@vrqjld!^2ci@g*b'
 
 app.config.from_object(__name__)
