@@ -1,8 +1,10 @@
 import json
 from flask import request
+from flask_login import login_required, login_user, logout_user
 
 from simplecms import app
 from simplecms.app2 import *
+
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -29,6 +31,7 @@ def login():
 
 
 @app.route('/api/logout', methods=['GET'])
+@login_required
 def logout():
     logout_user()
     return 'OK'

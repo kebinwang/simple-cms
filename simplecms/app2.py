@@ -1,6 +1,7 @@
 import json
 
 from flask import request, session, redirect, url_for
+from flask_login import UserMixin
 from functools import wraps
 from peewee import *
 
@@ -15,7 +16,7 @@ class BaseModel(Model):
         database = database
 
 
-class User(BaseModel):
+class User(UserMixin, BaseModel):
     username = CharField(unique=True)
     password = CharField()
     # permission
@@ -60,28 +61,3 @@ def create_tables():
     database.connect()
     database.create_tables([User, Post, Magazine, MagazinePost])
 
-
-def login_user(user):
-    session['logged_in'] = True
-    session['user_id'] = user.id
-    session['username'] = user.username
-
-
-def logout_user():
-    session['logged_in'] = False
-    session.pop('user_id')
-    session.pop('username')
-
-
-def get_current_user():
-    if session.get('logged_in'):
-        return User.get(User.id == session['user_id'])
-
-
-def login_required(f):
-    @wraps(f)
-    def inner(*args, **kwargs):
-        if not session.get('logged_in'):
-            return redirect(url_for('login'))
-        return f(*args, **kwargs)
-    return inner

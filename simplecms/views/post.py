@@ -1,3 +1,5 @@
+from flask_login import login_required, current_user
+
 from simplecms import app
 from simplecms.app2 import *
 
@@ -7,7 +9,7 @@ from simplecms.app2 import *
 def new_post():
     json_data = request.get_json()
     post = Post.create(
-        user=session['user_id'],
+        user=current_user.id,
         author=json_data.get('author'),
         title=json_data.get('title'),
         content=json_data.get('content'))
