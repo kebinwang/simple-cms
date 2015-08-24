@@ -4,15 +4,10 @@ from flask import request, session, redirect, url_for
 from functools import wraps
 from peewee import *
 
-from .init import app
+from . import app
 
 
-DATABASE = 'simplecms-dev.db'
-SECRET_KEY = 'sfserxcg8ge25*r=x&amp;+5$0kn=-#log$pt^#@vrqjld!^2ci@g*b'
-
-app.config.from_object(__name__)
-
-database = SqliteDatabase(DATABASE)
+database = SqliteDatabase(app.config.get('DATABASE'))
 
 
 class BaseModel(Model):
