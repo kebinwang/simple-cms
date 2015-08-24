@@ -1,7 +1,10 @@
+import json
+
+from flask import request
 from flask_login import login_required, current_user
 
 from simplecms import app
-from simplecms.app2 import *
+from simplecms.models.post import Post
 
 
 @app.route('/api/post', methods=['POST'])

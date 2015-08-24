@@ -1,7 +1,9 @@
+import json
+from flask import request
 from flask_login import login_required, current_user
 
 from simplecms import app
-from simplecms.app2 import *
+from simplecms.models.magazine import Magazine, MagazinePost
 
 @app.route('/api/magazine', methods=['GET', 'POST'])
 @login_required
@@ -72,7 +74,7 @@ def magazine(id):
             json_data = request.get_json()
             for post_data in json_data:
                 MagazinePost.create(
-                    user=current_user,
+                    user=current_user.id,
                     magazine=id,
                     title=post_data.get('title'),
                     desc=post_data.get('desc'),

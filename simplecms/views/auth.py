@@ -3,8 +3,7 @@ from flask import request
 from flask_login import login_required, login_user, logout_user
 
 from simplecms import app
-from simplecms.app2 import *
-
+from simplecms.models.user import User
 
 @app.route('/api/login', methods=['POST'])
 def login():
