@@ -59,4 +59,5 @@ target/
 # Mr Developer
 venv/
 config.py
+database_setup.py
 *.db

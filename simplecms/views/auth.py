@@ -4,6 +4,8 @@ from flask_login import login_required, login_user, logout_user
 
 from simplecms import app
 from simplecms.models.user import User
+from simplecms.utils.render import ok, error
+
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -13,24 +15,15 @@ def login():
         user = User.get(
             username=json_data.get('username'))
     except User.DoesNotExist:
-        response['code'] = 211
-        response['message'] = 'Could not find user'
-    else:
-        if user.password != json_data.get('password'):
-            response['code'] = 210
-            response['message'] = 'The username and password mismatch.'
-        else:
-            # response['code'] = 200
-            response['username'] = user.username
-            login_user(user)
-    finally:
-        pass
-    
-    return json.dumps(response)
+        return error({'code': 211, 'message': 'Could not find user'})        
+    if user.password != json_data.get('password'):
+        return error({'code': 210, 'message': 'The username and password mismatch.'})
+    login_user(user)
+    return ok({'username': user.username})
 
 
 @app.route('/api/logout', methods=['GET'])
 @login_required
 def logout():
     logout_user()
-    return 'OK'
+    return ok('successfully logouted')

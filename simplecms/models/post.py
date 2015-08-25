@@ -1,13 +1,24 @@
-from peewee import TextField, ForeignKeyField
+from peewee import CharField, TextField, ForeignKeyField
 
 from .base import BaseModel
 from .user import User
 
 class Post(BaseModel):
     user = ForeignKeyField(User) 
-    author = TextField()
-    title = TextField()
+    author_name = CharField()
+    title = CharField()
     content = TextField()
 
+    #TODO: Meta 用来做什么，order_by 有没有用？
     class Meta:
         order_by = ('-id',)
+
+    @classmethod    
+    def get_all_posts(self):
+        return list(Post.select())
+
+    def update_post(self, new_data):
+        self.author_name = new_data.get('author')
+        self.title = new_data.get('title')
+        self.content = new_data.get('content')
+        self.save()
