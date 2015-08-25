@@ -14,7 +14,7 @@ def new_post():
     json_data = request.get_json()
     #TODO: 下面这样异常处理可以吗？
     try:
-        post = Post.create(
+        post = Post.create_new(
             user=current_user.id,
             author_name=json_data.get('author'),
             title=json_data.get('title'),

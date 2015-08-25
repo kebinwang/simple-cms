@@ -13,6 +13,14 @@ class Post(BaseModel):
     class Meta:
         order_by = ('-id',)
 
+    @classmethod
+    def create_new(self, user, author_name, title, content):
+        return Post.create(
+            user=user,
+            author_name=author_name,
+            title=title,
+            content=content)
+
     @classmethod    
     def get_all_posts(self):
         return list(Post.select())

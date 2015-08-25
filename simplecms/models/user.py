@@ -10,3 +10,9 @@ class User(UserMixin, BaseModel):
 
     class Meta:
         order_by = ('username',)
+
+    @classmethod
+    def create_new(username, password):
+        return User.create(
+            username=username,
+            password=password)

@@ -41,7 +41,7 @@ def get_magazines():
 def new_magazine():
     json_data = request.get_json()
     try:
-        Magazine.create(
+        Magazine.create_new(
             title=json_data.get('title'))
     except Exception as e:
         return error(str(e))
@@ -96,7 +96,7 @@ def modify_magazine(id):
             query.execute()
             # and new post
             for post_data in new_data:
-                MagazinePost.create(
+                MagazinePost.create_new(
                     user=current_user.id,
                     magazine=id,
                     title=post_data.get('title'),
