@@ -15,13 +15,28 @@ $ source venv/bin/activate
 
 ### 2. 初试化数据库
 
+在项目根目录创建下面文件并运行：
+
 ```
-(venv) $ python
->>> from simplecms.app import *
->>> create_tables()
+from simplecms import database
+from simplecms.models.user import User
+from simplecms.models.post import Post
+from simplecms.models.magazine import Magazine, MagazinePost
+
+
+def create_tables():
+    database.connect()
+    database.create_tables([User, Post, Magazine, MagazinePost])
+
+if __name__ == '__main__':
+    create_tables()
+    User.create(
+        username='xcf',
+        password='xcf')
+
 ```
 
-会在项目根目录创建 `simplecms-dev.db` sqlite 数据库文件，手动去里面添加一个用户。
+会在项目根目录创建 `simplecms-dev.db` sqlite 数据库文件。
 
 ### 3. 运行
 
