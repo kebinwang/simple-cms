@@ -1,14 +1,19 @@
-from peewee import CharField, TextField, ForeignKeyField
+import datetime
+
+from peewee import CharField, TextField, ForeignKeyField, DateTimeField
 
 from .base import BaseModel
 from .user import User
 
 
 class Magazine(BaseModel):
+    create_time = DateTimeField(default=datetime.datetime.now)
+    update_time = DateTimeField(default=datetime.datetime.now)
+
     title = CharField(max_length=120)
 
     class Meta:
-        order_by = ('-id',)
+        pass
 
     @classmethod
     def create_new(self, title):
@@ -39,6 +44,9 @@ class Magazine(BaseModel):
 
 
 class MagazinePost(BaseModel):
+    create_time = DateTimeField(default=datetime.datetime.now)
+    update_time = DateTimeField(default=datetime.datetime.now)
+
     user = ForeignKeyField(User)
     magazine = ForeignKeyField(Magazine, related_name='posts')
     title = CharField(max_length=120)
@@ -49,7 +57,7 @@ class MagazinePost(BaseModel):
     category_icon = CharField(max_length=200)
 
     class Meta:
-        order_by = ('-id',)
+        pass
 
     @classmethod
     def create_new(self, user, magazine, title, desc, url, cover, category, category_icon):

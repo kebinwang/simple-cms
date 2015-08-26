@@ -1,17 +1,21 @@
-from peewee import CharField, TextField, ForeignKeyField
+import datetime
+
+from peewee import CharField, TextField, ForeignKeyField, DateTimeField
 
 from .base import BaseModel
 from .user import User
 
 class Post(BaseModel):
+    create_time = DateTimeField(default=datetime.datetime.now)
+    update_time = DateTimeField(default=datetime.datetime.now)
+
     user = ForeignKeyField(User) 
     author_name = CharField(max_length=60)
     title = CharField(max_length=120)
     content = TextField()
 
-    #TODO: Meta 用来做什么，order_by 有没有用？
     class Meta:
-        order_by = ('-id',)
+        pass
 
     @classmethod
     def create_new(self, user, author_name, title, content):
