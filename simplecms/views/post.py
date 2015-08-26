@@ -27,11 +27,7 @@ def posts_id(id):
         post = Post.get(id=id)
     except Post.DoesNotExist:
         return error('post does not exist', 404)
-    post_data = {}
-    post_data['author'] = post.author_name
-    post_data['title'] = post.title
-    post_data['content'] = post.content
-    return ok(post_data)
+    return ok(post.dump())
 
 
 @app.route('/api/posts/<id>/update', methods=['POST'])
@@ -63,12 +59,4 @@ def posts_id_delete(id):
 @app.route('/api/posts', methods=['GET'])
 @login_required
 def posts():
-    posts_data = []
-    posts = Post.get_all_posts()
-    for post in posts:
-        post_data = {}
-        post_data['id'] = post.id
-        post_data['author'] = post.author_name
-        post_data['title'] = post.title
-        posts_data.append(post_data)
-    return ok(posts_data)
+    return ok(Post.dump_list())
