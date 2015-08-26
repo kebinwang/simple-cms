@@ -12,7 +12,7 @@ app.config.from_object(Config)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-database = connect(app.config.get('DB_URL'))
+database = connect(app.config.get('DB_URL'), charset='utf8mb4')
 
 
 from simplecms.models.user import User
