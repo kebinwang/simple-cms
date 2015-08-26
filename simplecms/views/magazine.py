@@ -43,20 +43,7 @@ def magazines_id_update(id):
         return error('magazine does not exist', 404)
 
     new_data = request.get_json()
-    # remove old post
-    query = MagazinePost.delete().where(MagazinePost.magazine == id)
-    query.execute()
-    # and new post
-    for post_data in new_data:
-        MagazinePost.create_new(
-            user=current_user.id,
-            magazine=id,
-            title=post_data.get('title'),
-            desc=post_data.get('desc'),
-            url=post_data.get('url'),
-            cover=post_data.get('cover'),
-            category=post_data.get('category'),
-            category_icon=post_data.get('categoryIcon'))
+    magazine.update_posts(new_data)
     return ok()
 
 

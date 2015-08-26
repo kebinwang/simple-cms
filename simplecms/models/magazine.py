@@ -1,6 +1,7 @@
 import datetime
 
 from peewee import CharField, TextField, ForeignKeyField, DateTimeField
+from flask_login import current_user
 
 from .base import BaseModel
 from .user import User
@@ -41,6 +42,23 @@ class Magazine(BaseModel):
         for magazine_post in magazine_posts:
             magazine_data['posts'].append(magazine_post.dump())
         return magazine_data
+
+    def update_posts(self, new_data):
+        # remove old post
+        query = MagazinePost.delete().where(MagazinePost.magazine == self.id)
+        query.execute()
+        # and new post
+        for post_data in new_data:
+            MagazinePost.create_new(
+                user=current_user.id,
+                magazine=self.id,
+                title=post_data.get('title'),
+                desc=post_data.get('desc'),
+                url=post_data.get('url'),
+                cover=post_data.get('cover'),
+                category=post_data.get('category'),
+                category_icon=post_data.get('categoryIcon'))
+
 
 
 class MagazinePost(BaseModel):
