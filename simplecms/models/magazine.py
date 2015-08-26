@@ -37,6 +37,8 @@ class Magazine(BaseModel):
         magazine_data['id'] = self.id
         magazine_data['title'] = self.title
         magazine_data['posts'] = []
+        magazine_data['create_time'] = self.create_time
+        magazine_data['update_time'] = self.update_time
 
         magazine_posts = self.posts
         for magazine_post in magazine_posts:
@@ -98,4 +100,7 @@ class MagazinePost(BaseModel):
         magazine_post_data['cover'] = self.cover
         magazine_post_data['category'] = self.category
         magazine_post_data['categoryIcon'] = self.category_icon
+        magazine_post_data['create_time'] = self.create_time
+        magazine_post_data['update_time'] = self.update_time
+
         return magazine_post_data

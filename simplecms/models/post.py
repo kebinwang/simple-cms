@@ -45,9 +45,12 @@ class Post(BaseModel):
 
     def dump(self):
         post_data = {}
+        post_data['id'] = self.id
         post_data['author'] = self.author_name
         post_data['title'] = self.title
         post_data['content'] = self.content
+        post_data['create_time'] = self.create_time
+        post_data['update_time'] = self.update_time
         return post_data
 
     def dump_desc(self):
@@ -55,4 +58,6 @@ class Post(BaseModel):
         post_data['id'] = self.id
         post_data['author'] = self.author_name
         post_data['title'] = self.title
+        post_data['create_time'] = self.create_time
+        post_data['update_time'] = self.update_time
         return post_data
