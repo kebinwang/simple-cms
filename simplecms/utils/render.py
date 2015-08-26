@@ -7,15 +7,28 @@ def simplejsonify(data):
     return Response(json.dumps(data), mimetype='application/json')
 
 
-def ok(res):
-    return jsonify({
+def ok(content=''):
+    msg = {
         'status': 'ok',
-        'content': res,
-    })
+        'content': content,
+    }
+
+    resp = jsonify(msg)
+    return resp
 
 
-def error(res, status_code=400):
-    return jsonify({
-        'status': 'error',
-        'content': res,
-    }), status_code
+def error(error='', status_code=400):
+    if isinstance(error, (tuple, list)):
+        msg = {
+            'status': 'error',
+            'code': error[0],
+            'msg': error[1],
+        }
+    else:
+        msg = {
+            'status': 'error',
+            'msg': error,
+        }
+
+    resp = jsonify(msg, status_code=status_code)
+    return resp

@@ -15,15 +15,15 @@ def login():
         user = User.get(
             username=json_data.get('username'))
     except User.DoesNotExist:
-        return error({'code': 211, 'message': 'Could not find user'})        
+        return error((211, 'Could not find user'))
     if user.password != json_data.get('password'):
-        return error({'code': 210, 'message': 'The username and password mismatch.'})
+        return error((210, 'The username and password mismatch.'))
     login_user(user)
-    return ok({'username': user.username})
+    return ok({'username': user.username, 'user_id': user.id})
 
 
-@app.route('/api/logout', methods=['GET'])
+@app.route('/api/logout', methods=['POST'])
 @login_required
 def logout():
     logout_user()
-    return ok('successfully logouted')
+    return ok()
