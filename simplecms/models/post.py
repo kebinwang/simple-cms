@@ -5,8 +5,8 @@ from .user import User
 
 class Post(BaseModel):
     user = ForeignKeyField(User) 
-    author_name = CharField()
-    title = CharField()
+    author_name = CharField(max_length=60)
+    title = CharField(max_length=120)
     content = TextField()
 
     #TODO: Meta 用来做什么，order_by 有没有用？

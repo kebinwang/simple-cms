@@ -1,6 +1,7 @@
 from flask import Flask, session
 from flask_login import LoginManager
-from peewee import SqliteDatabase
+from peewee import SqliteDatabase, MySQLDatabase
+from playhouse.db_url import connect
 
 from .config import Config
 
@@ -11,8 +12,8 @@ app.config.from_object(Config)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-database = SqliteDatabase(app.config.get('DATABASE'))
-database.connect()
+database = connect(app.config.get('MYSQL_DB_URL') or 'sqlite:///default.db')
+
 
 from simplecms.models.user import User
 

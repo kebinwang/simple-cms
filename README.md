@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
 ```
 
-会在项目根目录创建 `simplecms-dev.db` sqlite 数据库文件。
+会在项目根目录创建 `default.db` sqlite 数据库文件，或者在对应的 MySQL 数据库中创建相应的表。
 
 ### 3. 运行
 

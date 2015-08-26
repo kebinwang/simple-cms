@@ -5,7 +5,7 @@ from .user import User
 
 
 class Magazine(BaseModel):
-    title = CharField()
+    title = CharField(max_length=120)
 
     class Meta:
         order_by = ('-id',)
@@ -22,12 +22,12 @@ class Magazine(BaseModel):
 class MagazinePost(BaseModel):
     user = ForeignKeyField(User)
     magazine = ForeignKeyField(Magazine)
-    title = CharField()
-    desc = CharField()
-    url = CharField()
-    cover = CharField()
-    category = CharField()
-    categoryIcon = CharField()
+    title = CharField(max_length=120)
+    desc = CharField(max_length=400)
+    url = CharField(max_length=200)
+    cover = CharField(max_length=200)
+    category = CharField(max_length=200)
+    categoryIcon = CharField(max_length=200)
 
     class Meta:
         order_by = ('-id',)

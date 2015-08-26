@@ -5,8 +5,8 @@ from .base import BaseModel
 
 
 class User(UserMixin, BaseModel):
-    username = CharField(unique=True)
-    password = CharField()
+    username = CharField(unique=True, max_length=60)
+    password = CharField(max_length=60)
 
     class Meta:
         order_by = ('username',)
