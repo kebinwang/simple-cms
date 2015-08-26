@@ -32,18 +32,15 @@ class Magazine(BaseModel):
         magazine_data['title'] = self.title
         magazine_data['posts'] = []
 
-        magazine_posts = self.posts()
+        magazine_posts = self.posts
         for magazine_post in magazine_posts:
             magazine_data['posts'].append(magazine_post.dump())
         return magazine_data
 
-    def posts(self):
-        return MagazinePost.select().where(MagazinePost.magazine == self.id)
-
 
 class MagazinePost(BaseModel):
     user = ForeignKeyField(User)
-    magazine = ForeignKeyField(Magazine)
+    magazine = ForeignKeyField(Magazine, related_name='posts')
     title = CharField(max_length=120)
     desc = CharField(max_length=400)
     url = CharField(max_length=200)
