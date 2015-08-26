@@ -1,4 +1,4 @@
-<a target="_blank" ng-if="post.objectId" ng-href="/post/{{post.objectId}}">
+<a target="_blank" ng-if="!isCreatingNew" ng-href="/posts/{{postId}}">
   <md-button class="md-fab post-view">
     <div class="md-headline">►</div>
   </md-button></a>
@@ -6,7 +6,7 @@
   <div layout="row" layout-align="center center" ng-if="!post" class="loading">
     <md-progress-circular md-mode="indeterminate" class="md-warn md-hue-3"></md-progress-circular>
   </div>
-  <form method="post" autocomplete="off" ng-submit="post.objectId ? editPost() : createPost()" ng-if="post" class="post-form">
+  <form method="post" autocomplete="off" ng-submit="submit()" ng-if="post" class="post-form">
     <md-input-container flex="flex">
       <label>文章标题</label>
       <input type="text" ng-model="post.title"/>
@@ -23,6 +23,6 @@
     </md-input-container>
     <md-switch ng-model="post.editSrc" aria-label="直接编辑源码"> 直接编辑源码（慎用！）</md-switch>
     <md-button aria-label="保存" ng-bind="loading ? '保存中……' : '保存'" class="md-raised md-primary"></md-button>
-    <md-button type="button" aria-label="删除" ng-if="post.objectId" ng-click="delPost()" class="md-raised md-warn">删除</md-button>
+    <md-button type="button" aria-label="删除" ng-if="!isCreatingNew" ng-click="delPost()" class="md-raised md-warn">删除</md-button>
   </form>
 </md-card>

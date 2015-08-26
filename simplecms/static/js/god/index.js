@@ -13,11 +13,11 @@
           controller: 'postsCtrl',
           templateUrl: '/static/js/god/template/posts.html'
         })
-        .when('/post/new', {
+        .when('/posts/new', {
           controller: 'postCtrl',
           templateUrl: '/static/js/god/template/post.html'
         })
-        .when('/post/:id', {
+        .when('/posts/:id', {
           controller: 'postCtrl',
           templateUrl: '/static/js/god/template/post.html'
         })
@@ -36,32 +36,32 @@
     })
     .service('getPost', function($http) {
       return function(id) {
-        return $http.get('/api/post/' + id);
+        return $http.get('/api/posts/' + id);
       };
     })
     .service('createPost', function($http) {
       return function(post) {
-        return $http.post('/api/post', post);
+        return $http.post('/api/posts/new', post);
       };
     })
     .service('editPost', function($http) {
       return function(id, post) {
-        return $http.put('/api/post/' + id, post);
+        return $http.post('/api/posts/' + id + '/update', post);
       };
     })
     .service('delPost', function($http) {
       return function(id) {
-        return $http.delete('/api/post/' + id);
+        return $http.post('/api/posts/' + id + '/delete');
       };
     })
     .service('getMagazine', function($http) {
       return function(id) {
-        return $http.get('/api/magazine/' + id);
+        return $http.get('/api/magazines/' + id);
       };
     })
     .service('editMagazine', function($http) {
       return function(id, magazine) {
-        return $http.put('/api/magazine/' + id, magazine);
+        return $http.put('/api/magazines/' + id, magazine);
       };
     })
     .service('login', function($http, $q) {
@@ -110,7 +110,7 @@
     .controller('postsCtrl', function($scope, $timeout, getPosts, catchErr) {
       getPosts()
         .then(function(xhr) {
-          $scope.posts = xhr.data;
+          $scope.posts = xhr.data.content;
         }, catchErr);
     })
     .controller('loginCtrl', function($scope, $location, login, toast) {
@@ -133,6 +133,9 @@
       var postId = $routeParams.id;
       var isCreatingNew = !angular.isString(postId);
 
+      $scope.isCreatingNew = isCreatingNew;
+      $scope.postId = postId;
+
       $scope.config = {
         UEDITOR_HOME_URL: '/static/lib/ueditor/',
         topOffset: 0,
@@ -148,7 +151,7 @@
         },
         serverUrl: null,
         enableAutoSave: false,
-        iframeCssUrl: '/static/css/posts.css',
+        // iframeCssUrl: '/static/css/posts.css',
         wordCount: false, //是否开启字数统计
         maximumWords: 99999, //允许的最大字符数
         initialFrameHeight: 500,
@@ -244,7 +247,7 @@
         createPost($scope.post)
           .then(function(res) {
             toast('保存成功！');
-            $location.path('/post/' + res.data.post.objectId);
+            $location.path('/posts/' + res.data.post.id);
           })
           .catch(catchErr)
           .finally(function() {
@@ -257,7 +260,7 @@
           return false;
         }
         $scope.loading = true;
-        editPost($scope.post.objectId, $scope.post)
+        editPost(postId, $scope.post)
           .then(function() {
             toast('保存成功！');
           })
@@ -279,13 +282,15 @@
 
         $mdDialog.show(confirm)
           .then(function() {
-            delPost($scope.post.objectId)
+            delPost($scope.postId)
               .then(function() {
                 toast('已删除！');
                 $location.path('/posts');
               });
           });
       };
+
+      $scope.submit = isCreatingNew ? $scope.createPost : $scope.editPost;
 
       if (isCreatingNew) {
         $scope.post = {
@@ -294,7 +299,7 @@
       } else {
         getPost(postId)
           .then(function(xhr) {
-            $scope.post = xhr.data;
+            $scope.post = xhr.data.content;
           });
       }
     })

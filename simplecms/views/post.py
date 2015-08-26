@@ -77,14 +77,13 @@ def posts_id_delete(id):
     post.delete_instance()
     return ok()
 
-
 @app.route('/api/posts', methods=['GET'])
 @login_required
 def posts():
     return ok(dump_post_list())
 
 @app.route('/posts/<id>', methods=['GET'])
-def posts(id):
+def posts_public(id):
     return render_template('posts.html')
 
 @app.route('/god', methods=['GET'])
@@ -92,5 +91,5 @@ def god():
     return render_template('god.html')
 
 @app.route('/magazines/<id>', methods=['GET'])
-def magazines(id):
+def magazines_public(id):
     return render_template('magazines.html')
