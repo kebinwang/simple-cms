@@ -1,0 +1,136 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body, input, button, textarea {
+  font-family: arial, "Microsoft YaHei", sans-serif;
+}
+.cke_chrome {
+  box-shadow: none!important;
+}
+.cke_source {
+  overflow: auto;
+}
+
+a {
+  border: none;
+  outline: none;
+}
+.hidden {
+  display: none;
+}
+
+.site-sidenav {
+  background: #3F51B5;
+  width: 100px;
+  max-width: 100px;
+  min-width: 100px;
+}
+.nav-header {
+  text-align: center;
+  padding: 50px 0;
+  display: block;
+  text-decoration: none;
+}
+.god-menu {
+  margin: 0;
+  padding: 0;
+}
+.god-menu .md-button {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  width: calc(100% - 100px);
+  height: 100%;
+  overflow: auto;
+  position: absolute;
+  left: 100px;
+}
+
+/* posts */
+.post-new.md-fab, .post-view.md-fab {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+}
+.loading {
+  height: 200px;
+}
+.post-form {
+  padding: 30px;
+}
+.post-form .post-content {
+  max-width: 100%;
+  width: 800px;
+  height: 600px;
+}
+.post-form .post-src {
+  max-width: 100%;
+  width: 1200px;
+}
+/* magazine */
+.magazine-title a {
+  color: #000;
+  text-decoration: none;
+}
+.magazine-posts md-list-item {
+  display: block;
+  position: relative;
+}
+.magazine-post .post-entry {
+  display: block;
+  cursor: pointer;
+  width: 100%;
+  height: 48px;
+  min-height: 48px;
+  padding: 0 16px;
+  display: block;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.magazine-post .post-entry.md-default-theme {
+  background: #3F51B5;
+  color: #fff;
+}
+.magazine-post md-list-item.md-no-proxy {
+  display: block;
+  padding: 0;
+}
+.magazine-post h3 {
+  margin: 0;
+  line-height: 48px;
+}
+.magazine-post .post-form {
+  padding: 20px;
+  width: 100%;
+  background: #f7f7f7;
+}
+.magazine-post .post-actions {
+  position: absolute;
+}
+.magazine .save {
+  width: 100px;
+}
+.magazine-title {
+  padding: 20px;
+}
+.magazine .md-fab {
+  margin: 0 0 0 20px;
+}
+.magazine .magazine-post-add {
+  padding: 0 20px;
+  color: gray;
+  line-height: 48px;
+}
+
+/* 登录 */
+.login-form {
+  padding: 40px 30px;
+}

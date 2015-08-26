@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="//apps.bdimg.com/libs/typo.css/2.0/typo.min.css"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/posts.css')}}"/>
+{% endblock %}
+
+{% block main %}
+<div class="post">
+  <h3 class="title">title</h3>
+  <div class="view">content</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<link rel="stylesheet" href="{{url_for('static', filename='js/posts.js')}}"/>
+{% endblock %}

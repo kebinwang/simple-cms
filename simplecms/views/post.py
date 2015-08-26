@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, render_template
 from flask_login import login_required, current_user
 
 from simplecms import app
@@ -82,3 +82,15 @@ def posts_id_delete(id):
 @login_required
 def posts():
     return ok(dump_post_list())
+
+@app.route('/posts/<id>', methods=['GET'])
+def posts(id):
+    return render_template('posts.html')
+
+@app.route('/god', methods=['GET'])
+def god():
+    return render_template('god.html')
+
+@app.route('/magazines/<id>', methods=['GET'])
+def magazines(id):
+    return render_template('magazines.html')
