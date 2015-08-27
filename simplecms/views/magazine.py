@@ -4,12 +4,13 @@ from flask_login import login_required
 from simplecms import app
 from simplecms.models.magazine import Magazine
 from simplecms.utils.render import ok, error
+from simplecms.utils.dump import dump_magazine_all, dump_magazine
 
 
 @app.route('/api/magazines', methods=['GET'])
 @login_required
 def magazines():
-    return ok(Magazine.dump_all())
+    return ok(dump_magazine_all())
 
 
 @app.route('/api/magazines/new', methods=['POST'])
@@ -28,8 +29,7 @@ def magazines_id(id):
         magazine = Magazine.get(Magazine.id == id)
     except Magazine.DoesNotExist:
         return error('magazine does not exist', 404)
-    magazine.update_visits()
-    return ok(magazine.dump())
+    return ok(dump_magazine(magazine))
 
 
 @app.route('/api/magazines/<id>/update', methods=['POST'])

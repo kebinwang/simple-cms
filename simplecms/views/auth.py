@@ -4,6 +4,7 @@ from flask_login import login_required, login_user, logout_user
 from simplecms import app
 from simplecms.models.user import User
 from simplecms.utils.render import ok, error
+from simplecms.utils.dump import dump_user
 
 
 @app.route('/api/login', methods=['POST'])
@@ -17,7 +18,7 @@ def login():
     if not user.verify_password(json_data.get('password')):
         return error((210, 'The username and password mismatch.'))
     login_user(user)
-    return ok({'username': user.username, 'user_id': user.id})
+    return ok(dump_user(user))
 
 
 @app.route('/api/logout', methods=['POST'])

@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from simplecms import app
 from simplecms.models.post import Post
 from simplecms.utils.render import ok, error
+from simplecms.utils.dump import dump_post_list, dump_post
 
 
 @app.route('/api/posts/new', methods=['POST'])
@@ -26,8 +27,7 @@ def posts_id(id):
         post = Post.get(id=id)
     except Post.DoesNotExist:
         return error('post does not exist', 404)
-    post.update_visits()
-    return ok(post.dump())
+    return ok(dump_post(post))
 
 
 @app.route('/api/posts/<id>/update', methods=['POST'])
@@ -59,4 +59,4 @@ def posts_id_delete(id):
 @app.route('/api/posts', methods=['GET'])
 @login_required
 def posts():
-    return ok(Post.dump_list())
+    return ok(dump_post_list())

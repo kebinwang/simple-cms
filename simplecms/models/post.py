@@ -29,38 +29,9 @@ class Post(BaseModel):
     def all(self):
         return Post.select()
 
-    @classmethod
-    def dump_list(self):
-        posts = Post.all()
-        posts_data = []
-        for post in posts:
-            posts_data.append(post.dump_desc())
-        return posts_data
-
     def update_post(self, new_data):
         self.author_name = new_data.get('author')
         self.category = new_data.get('category')
         self.title = new_data.get('title')
         self.content = new_data.get('content')
         self.save()
-
-    def dump(self):
-        post_data = {}
-        post_data['id'] = self.id
-        post_data['author'] = self.author_name
-        post_data['category'] = self.category
-        post_data['title'] = self.title
-        post_data['content'] = self.content
-        post_data['create_time'] = self.create_time
-        post_data['update_time'] = self.update_time
-        return post_data
-
-    def dump_desc(self):
-        post_data = {}
-        post_data['id'] = self.id
-        post_data['author'] = self.author_name
-        post_data['category'] = self.category
-        post_data['title'] = self.title
-        post_data['create_time'] = self.create_time
-        post_data['update_time'] = self.update_time
-        return post_data
