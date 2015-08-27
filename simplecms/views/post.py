@@ -15,6 +15,7 @@ def posts_new():
     post = Post.create_new(
         user=current_user.id,
         author_name=json_data.get('author'),
+        category=json_data.get('category'),
         title=json_data.get('title'),
         content=json_data.get('content'))
     return ok()
@@ -27,6 +28,7 @@ def posts_id(id):
         post = Post.get(id=id)
     except Post.DoesNotExist:
         return error('post does not exist', 404)
+    post.update_visits()
     return ok(post.dump())
 
 

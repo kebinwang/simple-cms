@@ -29,7 +29,7 @@ def magazines_id(id):
         magazine = Magazine.get(Magazine.id==id)
     except Magazine.DoesNotExist:
         return error('magazine does not exist', 404)
-
+    magazine.update_visits()
     return ok(magazine.dump())
 
 

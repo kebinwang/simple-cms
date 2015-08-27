@@ -1,6 +1,6 @@
 import datetime
 
-from peewee import CharField, TextField, ForeignKeyField, DateTimeField
+from peewee import CharField, TextField, ForeignKeyField, DateTimeField, IntegerField
 from flask_login import current_user
 
 from .base import BaseModel
@@ -12,6 +12,7 @@ class Magazine(BaseModel):
     update_time = DateTimeField(default=datetime.datetime.now)
 
     title = CharField(max_length=120)
+    visits = IntegerField(default=0)
 
     class Meta:
         pass
@@ -32,19 +33,6 @@ class Magazine(BaseModel):
             magazines_data.append(magazine.dump())
         return magazines_data
 
-    def dump(self):
-        magazine_data = {}
-        magazine_data['id'] = self.id
-        magazine_data['title'] = self.title
-        magazine_data['posts'] = []
-        magazine_data['create_time'] = self.create_time
-        magazine_data['update_time'] = self.update_time
-
-        magazine_posts = self.posts
-        for magazine_post in magazine_posts:
-            magazine_data['posts'].append(magazine_post.dump())
-        return magazine_data
-
     def update_posts(self, new_data):
         # remove old post
         query = MagazinePost.delete().where(MagazinePost.magazine == self.id)
@@ -61,6 +49,23 @@ class Magazine(BaseModel):
                 category=post_data.get('category'),
                 category_icon=post_data.get('categoryIcon'))
 
+    def update_visits(self):
+        self.visits += 1
+        self.save()
+
+    def dump(self):
+        magazine_data = {}
+        magazine_data['id'] = self.id
+        magazine_data['title'] = self.title
+        magazine_data['visits'] = self.visits
+        magazine_data['posts'] = []
+        magazine_data['create_time'] = self.create_time
+        magazine_data['update_time'] = self.update_time
+
+        magazine_posts = self.posts
+        for magazine_post in magazine_posts:
+            magazine_data['posts'].append(magazine_post.dump())
+        return magazine_data
 
 
 class MagazinePost(BaseModel):
