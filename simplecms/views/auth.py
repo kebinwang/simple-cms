@@ -1,4 +1,3 @@
-import json
 from flask import request
 from flask_login import login_required, login_user, logout_user
 
@@ -10,7 +9,6 @@ from simplecms.utils.render import ok, error
 @app.route('/api/login', methods=['POST'])
 def login():
     json_data = request.get_json()
-    response = {}
     try:
         user = User.get(
             username=json_data.get('username'))

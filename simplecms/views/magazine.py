@@ -1,10 +1,9 @@
-import json
-from flask import request, jsonify
-from flask_login import login_required, current_user
+from flask import request
+from flask_login import login_required
 
 from simplecms import app
-from simplecms.models.magazine import Magazine, MagazinePost
-from simplecms.utils.render import ok, error, simplejsonify
+from simplecms.models.magazine import Magazine
+from simplecms.utils.render import ok, error
 
 
 @app.route('/api/magazines', methods=['GET'])
@@ -26,7 +25,7 @@ def magazines_new():
 @login_required
 def magazines_id(id):
     try:
-        magazine = Magazine.get(Magazine.id==id)
+        magazine = Magazine.get(Magazine.id == id)
     except Magazine.DoesNotExist:
         return error('magazine does not exist', 404)
     magazine.update_visits()
@@ -36,9 +35,8 @@ def magazines_id(id):
 @app.route('/api/magazines/<id>/update', methods=['POST'])
 @login_required
 def magazines_id_update(id):
-    #TODO: 是否需要单独去处理每一条 magazine 的 post，Magazine 的组成有待确认
     try:
-        magazine = Magazine.get(Magazine.id==id)
+        magazine = Magazine.get(Magazine.id == id)
     except Magazine.DoesNotExist:
         return error('magazine does not exist', 404)
 
@@ -51,7 +49,7 @@ def magazines_id_update(id):
 @login_required
 def magazines_id_delete(id):
     try:
-        magazine = Magazine.get(Magazine.id==id)
+        magazine = Magazine.get(Magazine.id == id)
     except Magazine.DoesNotExist:
         return error('magazine does not exist', 404)
 

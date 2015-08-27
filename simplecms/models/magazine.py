@@ -1,6 +1,6 @@
 import datetime
 
-from peewee import CharField, TextField, ForeignKeyField, DateTimeField, IntegerField
+from peewee import CharField, ForeignKeyField, DateTimeField, IntegerField
 from flask_login import current_user
 
 from .base import BaseModel
@@ -85,7 +85,8 @@ class MagazinePost(BaseModel):
         pass
 
     @classmethod
-    def create_new(self, user, magazine, title, desc, url, cover, category, category_icon):
+    def create_new(self, user, magazine, title, desc, url,
+                   cover, category, category_icon):
         return MagazinePost.create(
             user=user,
             magazine=magazine,

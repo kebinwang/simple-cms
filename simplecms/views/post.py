@@ -1,18 +1,16 @@
-import json
-
-from flask import request, jsonify
+from flask import request
 from flask_login import login_required, current_user
 
 from simplecms import app
 from simplecms.models.post import Post
-from simplecms.utils.render import ok, error, simplejsonify
+from simplecms.utils.render import ok, error
 
 
 @app.route('/api/posts/new', methods=['POST'])
 @login_required
 def posts_new():
     json_data = request.get_json()
-    post = Post.create_new(
+    Post.create_new(
         user=current_user.id,
         author_name=json_data.get('author'),
         category=json_data.get('category'),

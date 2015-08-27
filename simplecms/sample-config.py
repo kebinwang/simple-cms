@@ -15,7 +15,8 @@ class DevelopmentConfig(BaseConfig):
     MYSQLPASSWD = "xiachufang"
     MYSQLUSER = "xiachufang"
     MYSQLDB_NAME = "xiachufang"
-    MYSQL_DB_URL = "mysql://%s:%s@%s/%s" % (MYSQLUSER, MYSQLPASSWD, MYSQLHOST, MYSQLDB_NAME)
+    MYSQL_DB_URL = "mysql://%s:%s@%s/%s" \
+                   % (MYSQLUSER, MYSQLPASSWD, MYSQLHOST, MYSQLDB_NAME)
 
 
 class ProductionConfig(BaseConfig):

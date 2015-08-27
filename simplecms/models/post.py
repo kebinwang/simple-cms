@@ -1,15 +1,17 @@
 import datetime
 
-from peewee import CharField, TextField, ForeignKeyField, DateTimeField, IntegerField
+from peewee import CharField, TextField, ForeignKeyField,\
+    DateTimeField, IntegerField
 
 from .base import BaseModel
 from .user import User
+
 
 class Post(BaseModel):
     create_time = DateTimeField(default=datetime.datetime.now)
     update_time = DateTimeField(default=datetime.datetime.now)
 
-    user = ForeignKeyField(User) 
+    user = ForeignKeyField(User)
     author_name = CharField(max_length=60)
     category = CharField(max_length=60)
     title = CharField(max_length=120)
