@@ -66,26 +66,18 @@
     })
     .service('login', function($http, $q) {
       return function(user) {
-        return $q.all([
-          $http.post('/api/login', user),
-          // AV.User.logIn(user.username, user.password)
-        ]);
+        return $http.post('/api/login', user);
       };
     })
     .service('catchErr', function($http, $location) {
       return function(err) {
+        if(err.status === 401) {
+          return $location.path('/login');
+        }
+
         try {
-          switch (err.data.err) {
-            case 1:
-              alert(err.data.msg);
-              break;
-            case 2:
-              $location.path('/login');
-              break;
-            default:
-              console.error(err);
-              alert(err.data.msg);
-          }
+          console.error(err);
+          alert(err.data.msg);
         } catch (e) {
           console.error(e);
           alert('出错了……');
@@ -125,7 +117,7 @@
             toast('登录成功！');
           })
           .catch(function(err) {
-            alert(err.data.message);
+            alert(err.data.msg);
           });
       };
     })

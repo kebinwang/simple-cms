@@ -24,5 +24,6 @@ def error(error='', status_code=400):
             'msg': error,
         }
 
-    resp = jsonify(msg, status_code=status_code)
+    resp = jsonify(msg)
+    resp.status_code = status_code
     return resp
