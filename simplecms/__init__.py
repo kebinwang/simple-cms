@@ -11,11 +11,7 @@ app.config.from_object(Config)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-if app.config.get('DB_CHARSET'):
-    database = connect(app.config.get('DB_URL'),
-                       charset=app.config.get('DB_CHARSET'))
-else:
-    database = connect(app.config.get('DB_URL'))
+database = connect(**app.config.get('DB_CONFIG'))
 
 
 from simplecms.models.user import User

@@ -1,9 +1,3 @@
-import os
-
-
-MODULE_NAME = os.path.dirname(os.path.abspath(__file__)).split('/')[-1]
-
-
 class BaseConfig(object):
     pass
 
@@ -17,6 +11,18 @@ class DevelopmentConfig(BaseConfig):
     MYSQLDB_NAME = "xiachufang"
     MYSQL_DB_URL = "mysql://%s:%s@%s/%s" \
                    % (MYSQLUSER, MYSQLPASSWD, MYSQLHOST, MYSQLDB_NAME)
+    DB_CHARSET = 'utf8mb4'
+    DB_URL = "mysql://%s:%s@%s/%s"\
+             % (MYSQLUSER, MYSQLPASSWD, MYSQLHOST, MYSQLDB_NAME)
+    DB_CONFIG = {
+        'url': DB_URL,
+        'charset': DB_CHARSET,
+    }
+
+    # DB_URL = 'sqlite:///default.db'
+    # DB_CONFIG = {
+    #     'url': DB_URL,
+    # }
 
 
 class ProductionConfig(BaseConfig):
