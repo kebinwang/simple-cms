@@ -54,6 +54,11 @@
         return $http.post('/api/posts/' + id + '/delete');
       };
     })
+    .service('createMagazine', function($http) {
+      return function(magazine) {
+        return $http.post('/api/magazines/new', magazine);
+      };
+    })
     .service('getMagazine', function($http) {
       return function(id) {
         return $http.get('/api/magazines/' + id);
@@ -295,13 +300,17 @@
           });
       }
     })
-    .controller('magazineCtrl', function($scope, $mdToast, getMagazine, editMagazine, catchErr, toast) {
-      var magazineId = '55d4132100b09b5389b6d441'; //目前只手动建了这一个
+    .controller('magazineCtrl', function($scope, $mdToast, createMagazine, getMagazine, editMagazine, catchErr, toast) {
+      var magazineId = '1'; //目前只手动建了这一个
 
       getMagazine(magazineId)
         .then(function(xhr) {
-          $scope.magazine = xhr.data;
-          $scope.magazine.title = '美食生活杂志';
+          $scope.magazine = xhr.data.content;
+        })
+        .catch(function(err){
+          return createMagazine({
+            title:'美食生活杂志'
+          });
         })
         .catch(catchErr);
 

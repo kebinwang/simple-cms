@@ -82,14 +82,18 @@ def posts_id_delete(id):
 def posts():
     return ok(dump_post_list())
 
+
 @app.route('/posts/<id>', methods=['GET'])
 def posts_public(id):
-    return render_template('posts.html')
+
+    try:
+        post = Post.get(id=id)
+    except Post.DoesNotExist:
+        return error('post does not exist', 404)
+
+    post.update_visits()
+    return render_template('posts.html', post=post)
 
 @app.route('/god', methods=['GET'])
 def god():
     return render_template('god.html')
-
-@app.route('/magazines/<id>', methods=['GET'])
-def magazines_public(id):
-    return render_template('magazines.html')

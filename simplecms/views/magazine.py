@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, render_template
 from flask_login import login_required, current_user
 
 from simplecms import app
@@ -156,3 +156,13 @@ def magazines_mid_posts_id_delete(mid, id):
 
     magazine_post.delete_instance()
     return ok()
+
+@app.route('/magazines/<id>', methods=['GET'])
+def magazines_public(id):
+    try:
+        magazine = Magazine.get(Magazine.id == id)
+    except Magazine.DoesNotExist:
+        return error('magazine does not exist', 404)
+
+    magazine.update_visits()
+    return render_template('magazines.html', magazine=magazine)
