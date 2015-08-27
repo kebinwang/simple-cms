@@ -16,7 +16,7 @@ def login():
             username=json_data.get('username'))
     except User.DoesNotExist:
         return error((211, 'Could not find user'))
-    if user.password != json_data.get('password'):
+    if not user.verify_password(json_data.get('password')):
         return error((210, 'The username and password mismatch.'))
     login_user(user)
     return ok({'username': user.username, 'user_id': user.id})
