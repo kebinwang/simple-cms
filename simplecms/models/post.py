@@ -1,7 +1,6 @@
 import datetime
 
-from peewee import CharField, TextField, ForeignKeyField,\
-    DateTimeField, IntegerField
+from peewee import CharField, TextField, ForeignKeyField, DateTimeField
 
 from .base import BaseModel
 from .user import User
@@ -16,10 +15,6 @@ class Post(BaseModel):
     category = CharField(max_length=60)
     title = CharField(max_length=120)
     content = TextField()
-    visits = IntegerField(default=0)
-
-    class Meta:
-        pass
 
     @classmethod
     def create_new(self, user, author_name, category, title, content):
@@ -49,10 +44,6 @@ class Post(BaseModel):
         self.content = new_data.get('content')
         self.save()
 
-    def update_visits(self):
-        self.visits += 1
-        self.save()
-
     def dump(self):
         post_data = {}
         post_data['id'] = self.id
@@ -62,7 +53,6 @@ class Post(BaseModel):
         post_data['content'] = self.content
         post_data['create_time'] = self.create_time
         post_data['update_time'] = self.update_time
-        post_data['visits'] = self.visits
         return post_data
 
     def dump_desc(self):
@@ -73,5 +63,4 @@ class Post(BaseModel):
         post_data['title'] = self.title
         post_data['create_time'] = self.create_time
         post_data['update_time'] = self.update_time
-        post_data['visits'] = self.visits
         return post_data

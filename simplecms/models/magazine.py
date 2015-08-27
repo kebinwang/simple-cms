@@ -1,6 +1,6 @@
 import datetime
 
-from peewee import CharField, ForeignKeyField, DateTimeField, IntegerField
+from peewee import CharField, ForeignKeyField, DateTimeField
 from flask_login import current_user
 
 from .base import BaseModel
@@ -12,10 +12,6 @@ class Magazine(BaseModel):
     update_time = DateTimeField(default=datetime.datetime.now)
 
     title = CharField(max_length=120)
-    visits = IntegerField(default=0)
-
-    class Meta:
-        pass
 
     @classmethod
     def create_new(self, title):
@@ -47,17 +43,12 @@ class Magazine(BaseModel):
                 url=post_data.get('url'),
                 cover=post_data.get('cover'),
                 category=post_data.get('category'),
-                category_icon=post_data.get('categoryIcon'))
-
-    def update_visits(self):
-        self.visits += 1
-        self.save()
+                category_icon=post_data.get('category_icon'))
 
     def dump(self):
         magazine_data = {}
         magazine_data['id'] = self.id
         magazine_data['title'] = self.title
-        magazine_data['visits'] = self.visits
         magazine_data['posts'] = []
         magazine_data['create_time'] = self.create_time
         magazine_data['update_time'] = self.update_time
@@ -81,9 +72,6 @@ class MagazinePost(BaseModel):
     category = CharField(max_length=200)
     category_icon = CharField(max_length=200)
 
-    class Meta:
-        pass
-
     @classmethod
     def create_new(self, user, magazine, title, desc, url,
                    cover, category, category_icon):
@@ -105,7 +93,7 @@ class MagazinePost(BaseModel):
         magazine_post_data['url'] = self.url
         magazine_post_data['cover'] = self.cover
         magazine_post_data['category'] = self.category
-        magazine_post_data['categoryIcon'] = self.category_icon
+        magazine_post_data['category_icon'] = self.category_icon
         magazine_post_data['create_time'] = self.create_time
         magazine_post_data['update_time'] = self.update_time
 

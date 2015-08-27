@@ -14,9 +14,6 @@ class User(UserMixin, BaseModel):
     username = CharField(unique=True, max_length=60)
     password_hash = FixedCharField(max_length=128)
 
-    class Meta:
-        pass
-
     @classmethod
     def create_new(username, password):
         return User.create(
