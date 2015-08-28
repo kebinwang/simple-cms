@@ -51,18 +51,13 @@
             <label>文章分类图标</label>
             <input type="text" ng-model="post.categoryIcon"/>
           </md-input-container>
-          <md-button type="button" class="md-raised"
-            ng-click="closePost(post)">收起</md-button>
+          <md-button type="button" class="md-raised md-primary save"
+            ng-click="closePost(post)">发布到杂志</md-button>
           <md-button type="button" class="md-raised md-warn"
-            ng-click="delPost(post)">删除</md-button>
+            ng-click="delPost(post)">从杂志中删除</md-button>
         </div>
         <md-divider></md-divider>
       </md-list-item>
     </md-list>
-
-    <md-button type="button" class="md-raised md-primary save"
-      ng-click="save()">
-      保存
-    </md-button>
   </div>
 </md-card>
