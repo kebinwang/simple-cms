@@ -39,6 +39,21 @@ app
       return $http.put('/api/magazines/' + id, magazine);
     };
   })
+  .service('createMagazinePost', function($http) {
+    return function(magazine, post) {
+      return $http.post('/api/magazines/' + magazine.id + '/posts/new', post);
+    };
+  })
+  .service('updateMagazinePost', function($http) {
+    return function(magazine, post) {
+      return $http.post('/api/magazines/' + magazine.id + '/posts/' + post.id + '/update', post);
+    };
+  })
+  .service('deleteMagazinePost', function($http) {
+    return function(magazine, post) {
+      return $http.post('/api/magazines/' + magazine.id + '/posts/' + post.id + '/delete');
+    };
+  })
   .service('login', function($http, $q) {
     return function(user) {
       return $http.post('/api/login', user);

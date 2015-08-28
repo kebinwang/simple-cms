@@ -20,39 +20,51 @@
 
       <md-list-item class="magazine-post" ng-repeat="post in magazine.posts" class="md-3-line">
         <a class="post-entry" ng-click="editPost(post)" ng-if="!post.opened">
-          <h3>{{post.title || '暂无标题'}}</h3>
+          <h3>{{post.title || '请填写标题'}}</h3>
         </a>
         <a class="post-entry md-default-theme" ng-if="post.opened"
           ng-click="closePost(post)">
-          <h3>{{post.title || '暂无标题'}}</h3>
+          <h3>{{post.title || '请填写标题'}}</h3>
         </a>
         <div class="post-form" ng-if="post.opened">
           <md-input-container>
             <label>文章标题</label>
             <input type="text" ng-model="post.title"/>
           </md-input-container>
+
           <md-input-container>
             <label>文章封面图</label>
             <input type="text" ng-model="post.cover"/>
           </md-input-container>
+
+          <md-input-container>
+            <md-select aria-label="文章" ng-model="post.id">
+              <md-option ng-repeat="postToSelect in allPosts" value="{{postToSelect.id}}">{{postToSelect.title}}</md-option>
+            </md-select>
+          </md-input-container>
+
           <md-input-container>
             <label>文章链接</label>
             <input type="text" ng-model="post.url"/>
           </md-input-container>
+
           <md-input-container>
             <label>文章描述</label>
             <textarea ng-model="post.desc"></textarea>
           </md-input-container>
+
           <md-input-container>
             <label>文章分类</label>
             <input type="text" ng-model="post.category"/>
           </md-input-container>
+
           <md-input-container>
             <label>文章分类图标</label>
             <input type="text" ng-model="post.categoryIcon"/>
           </md-input-container>
+
           <md-button type="button" class="md-raised md-primary save"
-            ng-click="closePost(post)">发布到杂志</md-button>
+            ng-click="publishPost(post)">发布到杂志</md-button>
           <md-button type="button" class="md-raised md-warn"
             ng-click="delPost(post)">从杂志中删除</md-button>
         </div>

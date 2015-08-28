@@ -114,6 +114,7 @@ app
         return false;
       }
       $scope.loading = true;
+      console.log($scope.post);
       createPost($scope.post)
         .then(function(res) {
           toast('保存成功！');
@@ -165,7 +166,8 @@ app
     if (isCreatingNew) {
       $scope.post = {
         author: '下厨房',
-        category: 'normal'
+        category: 'normal',
+        visits: 0
       };
     } else {
       getPost(postId)
