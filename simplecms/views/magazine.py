@@ -71,13 +71,13 @@ def magazines_id_delete(id):
     return ok()
 
 
-@app.route('/api/magazine_posts/new', methods=['POST'])
+@app.route('/api/magazines/<mid>/posts/new', methods=['POST'])
 @login_required
-def magazine_posts_new():
+def magazines_mid_posts_new(mid):
     json_data = request.get_json()
 
     user_id = current_user.id
-    magazine_id = json_data.get('magazine_id')
+    magazine_id = mid
     post_id = json_data.get('post_id')
     title = json_data.get('title')
     desc = json_data.get('desc')
@@ -101,9 +101,9 @@ def magazine_posts_new():
     return ok(dump_magazine_post(magazine_post, mode='only_id'))
 
 
-@app.route('/api/magazine_posts/<id>', methods=['GET'])
+@app.route('/api/magazines/<mid>/posts/<id>', methods=['GET'])
 @login_required
-def magazine_posts_id(id):
+def magazines_mid_posts_id(mid, id):
     try:
         magazine_post = MagazinePost.get(MagazinePost.id == id)
     except MagazinePost.DoesNotExist:
@@ -111,9 +111,9 @@ def magazine_posts_id(id):
     return ok(dump_magazine_post(magazine_post))
 
 
-@app.route('/api/magazine_posts/<id>/update', methods=['POST'])
+@app.route('/api/magazines/<mid>/posts/<id>/update', methods=['POST'])
 @login_required
-def magazine_posts_id_update(id):
+def magazines_mid_posts_id_update(mid, id):
     try:
         magazine_post = MagazinePost.get(MagazinePost.id == id)
     except MagazinePost.DoesNotExist:
@@ -122,7 +122,7 @@ def magazine_posts_id_update(id):
     json_data = request.get_json()
 
     user_id = current_user.id
-    magazine_id = json_data.get('magazine_id')
+    magazine_id = mid
     post_id = json_data.get('post_id')
     title = json_data.get('title')
     desc = json_data.get('desc')
@@ -146,9 +146,9 @@ def magazine_posts_id_update(id):
     return ok()
 
 
-@app.route('/api/magazine_posts/<id>/delete', methods=['POST'])
+@app.route('/api/magazines/<mid>/posts/<id>/delete', methods=['POST'])
 @login_required
-def magazine_posts_id_delete(id):
+def magazines_mid_posts_id_delete(mid, id):
     try:
         magazine_post = MagazinePost.get(MagazinePost.id == id)
     except MagazinePost.DoesNotExist:
