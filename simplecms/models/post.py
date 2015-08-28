@@ -1,6 +1,7 @@
 import datetime
 
-from peewee import CharField, TextField, ForeignKeyField, DateTimeField
+from peewee import CharField, TextField, ForeignKeyField, DateTimeField,\
+    IntegerField
 
 from .base import BaseModel
 from .user import User
@@ -15,6 +16,7 @@ class Post(BaseModel):
     category = CharField(max_length=60)
     title = CharField(max_length=120)
     content = TextField()
+    visits = IntegerField(default=0)
 
     @classmethod
     def create_post(self, user_id, author_name, category, title, content):
@@ -28,6 +30,10 @@ class Post(BaseModel):
     @classmethod
     def all(self):
         return Post.select()
+
+    def update_visits(self):
+        self.visits += 1
+        self.save()
 
     def update_post(self, author_name, category, title, content):
         self.author_name = author_name

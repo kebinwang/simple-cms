@@ -29,6 +29,7 @@ def dump_post(post, mode='full'):
         r['title'] = post.title
         r['create_time'] = post.create_time
         r['update_time'] = post.update_time
+        r['visits'] = post.visits
         if mode == 'without_content':
             return r
         r['content'] = post.content
@@ -68,6 +69,7 @@ def dump_magazine_post(magazine_post, mode='full'):
             return r
         r['magazine_id'] = magazine_post.magazine.id
         r['post_id'] = magazine_post.post.id
+        r['post_visits'] = magazine_post.post.visits
         r['title'] = magazine_post.title
         r['desc'] = magazine_post.desc
         r['cover'] = magazine_post.cover
