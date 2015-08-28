@@ -19,11 +19,12 @@
     </md-input-container>
 
     <md-input-container>
-      <md-select aria-label="文章类型" ng-init="" ng-model="post.category">
+      <label>文章类型</label>
+      <md-select ng-model="post.category">
         <md-option value="normal">普通文章</md-option>
         <md-option value="recipe">菜谱</md-option>
         <md-option value="recipe_list">菜单</md-option>
-        <md-option value="source">通过源码发布的文章</md-option>
+        <md-option value="source">通过源码发布文章</md-option>
       </md-select>
     </md-input-container>
 

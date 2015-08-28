@@ -123,7 +123,8 @@ def magazines_mid_posts_id_update(mid, id):
 
     user_id = current_user.id
     magazine_id = mid
-    post_id = json_data.get('post_id')
+    post_id = id
+
     title = json_data.get('title')
     desc = json_data.get('desc')
     cover = json_data.get('cover')
@@ -164,5 +165,4 @@ def magazines_public(id):
     except Magazine.DoesNotExist:
         return error('magazine does not exist', 404)
 
-    magazine.update_visits()
-    return render_template('magazines.html', magazine=magazine)
+    return render_template('magazine.html', magazine=magazine)

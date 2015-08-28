@@ -13,7 +13,7 @@
 
       <md-list-item class="magazine-post-add">
         <a class="post-entry" ng-click="addPost()">
-          添加一篇新文章……
+          向杂志中添加一篇新文章……
         </a>
         <md-divider></md-divider>
       </md-list-item>
@@ -28,6 +28,21 @@
         </a>
         <div class="post-form" ng-if="post.opened">
           <md-input-container>
+            <label>选择文章</label>
+            <md-select aria-label="文章"
+              ng-model="post.post_id"
+              ng-change="syncPostTitle(post)"
+              >
+              <md-option
+                ng-repeat="postToSelect in allPosts"
+                value="{{postToSelect.id}}"
+              >
+                {{postToSelect.title}} （{{postToSelect.author}}）
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container>
             <label>文章标题</label>
             <input type="text" ng-model="post.title"/>
           </md-input-container>
@@ -35,17 +50,6 @@
           <md-input-container>
             <label>文章封面图</label>
             <input type="text" ng-model="post.cover"/>
-          </md-input-container>
-
-          <md-input-container>
-            <md-select aria-label="文章" ng-model="post.id">
-              <md-option ng-repeat="postToSelect in allPosts" value="{{postToSelect.id}}">{{postToSelect.title}}</md-option>
-            </md-select>
-          </md-input-container>
-
-          <md-input-container>
-            <label>文章链接</label>
-            <input type="text" ng-model="post.url"/>
           </md-input-container>
 
           <md-input-container>
@@ -60,13 +64,19 @@
 
           <md-input-container>
             <label>文章分类图标</label>
-            <input type="text" ng-model="post.categoryIcon"/>
+            <input type="text" ng-model="post.category_icon"/>
           </md-input-container>
 
           <md-button type="button" class="md-raised md-primary save"
             ng-click="publishPost(post)">发布到杂志</md-button>
+
           <md-button type="button" class="md-raised md-warn"
+            ng-if="post.id"
             ng-click="delPost(post)">从杂志中删除</md-button>
+          <md-button type="button" class="md-warn"
+            ng-if="!post.id"
+            ng-click="delPost(post)">先不发布了</md-button>
+
         </div>
         <md-divider></md-divider>
       </md-list-item>

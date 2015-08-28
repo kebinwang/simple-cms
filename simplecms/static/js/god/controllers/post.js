@@ -118,7 +118,7 @@ app
       createPost($scope.post)
         .then(function(res) {
           toast('保存成功！');
-          $location.path('/posts/' + res.data.post.id);
+          $location.path('/posts/' + res.data.content.id);
         })
         .catch(catchErr)
         .finally(function() {
@@ -165,9 +165,7 @@ app
 
     if (isCreatingNew) {
       $scope.post = {
-        author: '下厨房',
-        category: 'normal',
-        visits: 0
+        author: '下厨房'
       };
     } else {
       getPost(postId)

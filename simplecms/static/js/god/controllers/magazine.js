@@ -1,30 +1,28 @@
 app
   .controller('magazineCtrl', [
 
-    '$scope', '$mdToast', '$q',
+    '$scope', '$route', '$q', '$mdToast', '$mdDialog',
 
     'createMagazine', 'getMagazine', 'updateMagazinePost', 'createMagazinePost', 'deleteMagazinePost', 'getPosts', 'catchErr', 'toast',
 
     function(
-      $scope, $mdToast, $q,
+      $scope, $route, $q, $mdToast, $mdDialog,
 
       createMagazine, getMagazine, updateMagazinePost, createMagazinePost, deleteMagazinePost, getPosts, catchErr, toast
     ) {
       var magazineId = '1'; //目前只手动建了这一个
 
-      $q.all(
-        getMagazine(magazineId)
+      $q.all([
+          getMagazine(magazineId)
           .then(function(xhr) {
             $scope.magazine = xhr.data.content;
           }),
 
-        getPosts()
+          getPosts()
           .then(function(xhr) {
             $scope.allPosts = xhr.data.content;
           })
-      )
-        .then(function(xhr) {
-        })
+        ])
         .catch(function(err) {
           return createMagazine({
             title: '美食生活杂志'
@@ -52,11 +50,22 @@ app
           _.pull($scope.magazine.posts, post);
         };
 
-        if (post.id && confirm('确定要删除吗？')) {
-          toast('正在删除……');
-          deleteMagazinePost($scope.magazine, post)
-            .then(_.partial(toast, '删除成功！'))
-            .then(delPostFromScope);
+        if (post.id) {
+          var confirm = $mdDialog.confirm()
+            .parent(angular.element(document.body))
+            .title('确定要删除吗？')
+            .content('删除后无法恢复。')
+            .ariaLabel('Lucky day')
+            .ok('确定删除')
+            .cancel('不删除了');
+
+          $mdDialog.show(confirm)
+            .then(function() {
+              toast('正在删除……');
+              deleteMagazinePost($scope.magazine, post)
+                .then(_.partial(toast, '删除成功！'))
+                .then(delPostFromScope);
+            });
         } else {
           delPostFromScope();
         }
@@ -71,20 +80,19 @@ app
 
         promise
           .then(_.partial(toast, '发布成功！'))
+          .then(function(){
+            $route.reload()
+          })
           .catch(_.partial(toast, '发布失败……'));
       };
-      $scope.save = function() {
-        toast('正在发布……');
-
-        _.map($scope.magazine.posts, $scope.closePost);
-
-        editMagazine(magazineId, $scope.magazine)
-          .then(function() {
-            toast('发布成功！');
+      $scope.syncPostTitle = function(post) {
+        if (!post.title && post.post_id) {
+          _.attempt(function() {
+            post.title = _.find($scope.allPosts, {
+              id: parseInt(post.post_id, 10)
+            }).title;
           })
-          .catch(function() {
-            toast('发布失败……');
-          });
+        }
       };
     }
   ]);

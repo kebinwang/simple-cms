@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 
+{% block title %}
+<title>{{ post.title }}</title>
+{% endblock %}
+
 {% block css %}
 <link rel="stylesheet" href="//apps.bdimg.com/libs/typo.css/2.0/typo.min.css"/>
 <link rel="stylesheet" href="{{url_for('static', filename='css/posts.css')}}"/>
@@ -7,11 +11,12 @@
 
 {% block main %}
 <div class="post">
-  <h3 class="title">title</h3>
-  <div class="view">content</div>
+  <h3 class="title">{{ post.title }}</h3>
+  <div class="view">{{ post.content | safe }}</div>
 </div>
 {% endblock %}
 
 {% block js %}
-<link rel="stylesheet" href="{{url_for('static', filename='js/posts.js')}}"/>
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="{{url_for('static', filename='js/posts.js')}}"></script>
 {% endblock %}
