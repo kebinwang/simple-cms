@@ -67,6 +67,9 @@ def magazines_id_delete(id):
     except Magazine.DoesNotExist:
         return error('magazine does not exist', 404)
 
+    if magazine.posts.count():
+        return error('杂志中有文章，确定删除请先删除杂志中的内容')
+
     magazine.delete_instance()
     return ok()
 

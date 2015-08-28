@@ -30,4 +30,4 @@ def index():
 
 import simplecms.views.auth
 import simplecms.views.post
-import simplecms.views.magazine
+import simplecms.views.magazine     # noqa
