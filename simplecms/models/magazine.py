@@ -1,10 +1,10 @@
 import datetime
 
 from peewee import CharField, ForeignKeyField, DateTimeField
-from flask_login import current_user
 
 from .base import BaseModel
 from .user import User
+from .post import Post
 
 
 class Magazine(BaseModel):
@@ -14,28 +14,16 @@ class Magazine(BaseModel):
     title = CharField(max_length=120)
 
     @classmethod
-    def create_new(self, title):
+    def create_magazine(self, title):
         return Magazine.create(title=title)
 
     @classmethod
     def all(self):
         return Magazine.select()
 
-    def update_posts(self, new_data):
-        # remove old post
-        query = MagazinePost.delete().where(MagazinePost.magazine == self.id)
-        query.execute()
-        # and new post
-        for post_data in new_data:
-            MagazinePost.create_new(
-                user=current_user.id,
-                magazine=self.id,
-                title=post_data.get('title'),
-                desc=post_data.get('desc'),
-                url=post_data.get('url'),
-                cover=post_data.get('cover'),
-                category=post_data.get('category'),
-                category_icon=post_data.get('category_icon'))
+    def update_magazine(self, title):
+        self.title = title
+        self.save()
 
 
 class MagazinePost(BaseModel):
@@ -44,22 +32,34 @@ class MagazinePost(BaseModel):
 
     user = ForeignKeyField(User)
     magazine = ForeignKeyField(Magazine, related_name='posts')
+    post = ForeignKeyField(Post)
     title = CharField(max_length=120)
     desc = CharField(max_length=400)
-    url = CharField(max_length=200)
     cover = CharField(max_length=200)
     category = CharField(max_length=200)
     category_icon = CharField(max_length=200)
 
     @classmethod
-    def create_new(self, user, magazine, title, desc, url,
-                   cover, category, category_icon):
+    def create_magazine_post(self, user_id, magazine_id, post_id, title, desc,
+                             cover, category, category_icon):
         return MagazinePost.create(
-            user=user,
-            magazine=magazine,
+            user=user_id,
+            magazine=magazine_id,
+            post=post_id,
             title=title,
             desc=desc,
-            url=url,
             cover=cover,
             category=category,
             category_icon=category_icon)
+
+    def update_magazine_post(self, user_id, magazine_id, post_id, title, desc,
+                             cover, category, category_icon):
+        self.user = user_id
+        self.magazine = magazine_id
+        self.post = post_id
+        self.title = title
+        self.desc = desc
+        self.cover = cover
+        self.category = category
+        self.category_icon = category_icon
+        self.save()

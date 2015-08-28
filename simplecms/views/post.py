@@ -11,13 +11,22 @@ from simplecms.utils.dump import dump_post_list, dump_post
 @login_required
 def posts_new():
     json_data = request.get_json()
-    Post.create_new(
-        user=current_user.id,
-        author_name=json_data.get('author'),
-        category=json_data.get('category'),
-        title=json_data.get('title'),
-        content=json_data.get('content'))
-    return ok()
+    user_id = current_user.id
+    author_name = json_data.get('author')
+    category = json_data.get('category')
+    title = json_data.get('title')
+    content = json_data.get('content')
+
+    if not all((author_name, category, title, content)):
+        return error('没有提供所有参数')
+
+    post = Post.create_post(
+        user_id=user_id,
+        author_name=author_name,
+        category=category,
+        title=title,
+        content=content)
+    return ok(dump_post(post, mode='only_id'))
 
 
 @app.route('/api/posts/<id>', methods=['GET'])
@@ -38,9 +47,21 @@ def posts_id_update(id):
     except Post.DoesNotExist:
         return error('post does not exist', 404)
 
-    new_data = request.get_json()
+    json_data = request.get_json()
 
-    post.update_post(new_data)
+    author_name = json_data.get('author')
+    category = json_data.get('category')
+    title = json_data.get('title')
+    content = json_data.get('content')
+
+    if not all((author_name, category, title, content)):
+        return error('没有提供所有参数')
+
+    post.update_post(
+        author_name=author_name,
+        category=category,
+        title=title,
+        content=content)
     return ok()
 
 

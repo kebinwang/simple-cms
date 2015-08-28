@@ -17,9 +17,9 @@ class Post(BaseModel):
     content = TextField()
 
     @classmethod
-    def create_new(self, user, author_name, category, title, content):
+    def create_post(self, user_id, author_name, category, title, content):
         return Post.create(
-            user=user,
+            user=user_id,
             author_name=author_name,
             category=category,
             title=title,
@@ -29,9 +29,9 @@ class Post(BaseModel):
     def all(self):
         return Post.select()
 
-    def update_post(self, new_data):
-        self.author_name = new_data.get('author')
-        self.category = new_data.get('category')
-        self.title = new_data.get('title')
-        self.content = new_data.get('content')
+    def update_post(self, author_name, category, title, content):
+        self.author_name = author_name
+        self.category = category
+        self.title = title
+        self.content = content
         self.save()
