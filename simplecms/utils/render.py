@@ -1,10 +1,4 @@
-import json
-
-from flask import jsonify, Response
-
-
-def simplejsonify(data):
-    return Response(json.dumps(data), mimetype='application/json')
+from flask import jsonify
 
 
 def ok(content=''):
