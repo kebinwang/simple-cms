@@ -22,12 +22,7 @@ def load_user(userid):
     return User.get(User.id == userid)
 
 
-@app.route('/index')
-@app.route('/')
-def index():
-    return 'hello'
-
-
 import simplecms.views.auth
 import simplecms.views.post
-import simplecms.views.magazine     # noqa
+import simplecms.views.magazine
+import simplecms.views.god     # noqa

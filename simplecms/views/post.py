@@ -96,8 +96,3 @@ def posts_public(id):
 
     post.update_visits()
     return render_template('posts.html', post=post)
-
-
-@app.route('/god', methods=['GET'])
-def god():
-    return render_template('god.html')
