@@ -30,8 +30,8 @@ $(function() {
             timeout: 500
           })
           .always(function() {
-            location.href = url
             $body.removeAttr('style');
+            location.href = url;
           });
       }
     })
