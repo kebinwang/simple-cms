@@ -46,28 +46,5 @@
 
 {% block js %}
 <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<script>
-$(document)
-  .on('load', '.cover > img', function(){
-    $(this).addClass('loaded');
-  })
-  .on('click', 'a', function(event){
-    var $this = $(this);
-    var url = $this.attr('href');
-    var origin_url = $this.data('origin-url');
-
-    if (origin_url !== url) {
-      event.preventDefault();
-
-      $.ajax({
-        type: 'head',
-        url: origin_url,
-        timeout: 500
-      })
-        .always(function() {
-          location.href= url
-        });
-    }
-  })
-</script>
+<script src="/static/js/magazines.js"></script>
 {% endblock %}
