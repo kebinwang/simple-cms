@@ -1,0 +1,5 @@
+{% if post.category in ('recipe','recipe_list') %}
+{% include "link_post.html" %}
+{% else %}
+{% include "normal_post.html" %}
+{% endif %}

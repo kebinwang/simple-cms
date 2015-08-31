@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>下厨房文章后台</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="//cdn.bootcss.com/angular-material/0.10.1/angular-material.min.css" />
+<link rel="stylesheet" href="{{url_for('static', filename='css/god.css')}}" />
+{% endblock %}
+
+{% block main %}
+<div layout="row" class="container">
+  <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2">
+    <a href="#/" class="nav-header md-headline md-flex">
+      <span style="color: #A1CDD1">下</span>
+      <span style="color: #D04546">厨</span>
+      <span style="color: #EA9079">房</span>
+    </a>
+    <ul class="god-menu">
+      <li class="parent-list-item"><a href="#/" class="md-button md-hue-1 md-primary">文章</a></li>
+      <li class="parent-list-item"><a href="#/magazine" class="md-button md-hue-1 md-primary">杂志</a></li>
+    </ul>
+  </md-sidenav>
+  <div ng-app="god" ng-controller="rootCtrl" class="main-container">
+    <ng-view></ng-view>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="//apps.bdimg.com/libs/lodash/3.5.0/lodash.min.js"></script>
+<script src="//apps.bdimg.com/libs/angular.js/1.4.0-beta.4/angular.min.js"></script>
+<script src="//apps.bdimg.com/libs/angular.js/1.4.0-beta.4/angular-route.min.js"></script>
+<script src="//apps.bdimg.com/libs/angular.js/1.4.0-beta.4/angular-aria.min.js"></script>
+<script src="//apps.bdimg.com/libs/angular.js/1.4.0-beta.4/angular-animate.min.js"></script>
+
+<script src="//cdn.bootcss.com/angular-material/0.10.1/angular-material.min.js"></script>
+
+<script src="{{url_for('static', filename='js/god/ueditor.config.js')}}"></script>
+<script src="{{url_for('static', filename='lib/ueditor/ueditor.all.min.js')}}"></script>
+<script src="{{url_for('static', filename='lib/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
+<script src="{{url_for('static', filename='lib/angular-ueditor.min.js')}}"></script>
+
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="{{url_for('static', filename='js/god/app.js')}}"></script>
+<script src="{{url_for('static', filename='js/god/services/services.js')}}"></script>
+<script src="{{url_for('static', filename='js/god/controllers/root.js')}}"></script>
+<script src="{{url_for('static', filename='js/god/controllers/login.js')}}"></script>
+<script src="{{url_for('static', filename='js/god/controllers/posts.js')}}"></script>
+<script src="{{url_for('static', filename='js/god/controllers/post.js')}}"></script>
+<script src="{{url_for('static', filename='js/god/controllers/magazine.js')}}"></script>
+{% endblock %}
