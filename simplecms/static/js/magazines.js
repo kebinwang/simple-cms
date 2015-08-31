@@ -6,7 +6,7 @@ $(function() {
       $(this).addClass('loaded');
     });
 
-  setTimeout(function(){
+  setTimeout(function() {
     $covers.addClass('loaded');
   }, 1000);
 
