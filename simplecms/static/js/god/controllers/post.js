@@ -171,6 +171,7 @@ app
       getPost(postId)
         .then(function(xhr) {
           $scope.post = xhr.data.content;
-        });
+        })
+        .catch(catchErr);
     }
   });
