@@ -13,7 +13,7 @@
 {% block main %}
   <div class="post">
     <h3 class="title">{{ post.title }}</h3>
-    <div class="view">{{ post.content | safe }}</div>
+    <div class="view {{ 'immutable' if post.category == 'source' else '' }}">{{ post.content | safe }}</div>
   </div>
 {% endblock %}
 
