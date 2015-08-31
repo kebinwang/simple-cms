@@ -16,12 +16,12 @@ app
           getMagazine(magazineId)
           .then(function(xhr) {
             $scope.magazine = xhr.data.content;
-            $scope.magazine.posts = $scope.magazine.posts.reverse();
+            $scope.magazine.posts = $scope.magazine.posts;
           }),
 
           getPosts()
           .then(function(xhr) {
-            $scope.allPosts = xhr.data.content.reverse();
+            $scope.allPosts = xhr.data.content;
           })
         ])
         .catch(function(err) {

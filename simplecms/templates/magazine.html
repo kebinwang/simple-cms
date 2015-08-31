@@ -17,18 +17,18 @@
       <div class="category-name">{{ post.category }}</div>
     </div>
 
-    <a href="/posts/{{ post.id }}" class="cover">
+    <a href="/posts/{{ post.post_id }}" class="cover">
       <div class="cover-filter"></div>
       <img src="{{ post.cover }}" />
     </a>
 
     <h2 class="title">
-      <a href="{{ post.title }}">{{ post.title }}</a>
+      <a href="/posts/{{ post.post_id }}">{{ post.title }}</a>
     </h2>
 
     <div class="desc">{{ post.desc }}</div>
 
-    <div class="visits">阅读 {{ post.post_visits or 1000 }}</div>
+    <div class="visits">阅读 {{ post.post_visits or 0 }}</div>
   </div>
   {% endfor %}
 </div>
