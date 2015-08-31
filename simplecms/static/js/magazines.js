@@ -1,4 +1,5 @@
 $(function() {
+  var $body = $(document.body);
   var $covers = $('.cover > img');
 
   $covers
@@ -10,7 +11,7 @@ $(function() {
     $covers.addClass('loaded');
   }, 1000);
 
-  $(document)
+  $body
     .on('click', 'a', function(event) {
       var $this = $(this);
       var url = $this.attr('href');
@@ -19,7 +20,7 @@ $(function() {
       if (origin_url !== url) {
         event.preventDefault();
 
-        $(document.body).animate({
+        $body.animate({
           opacity: '.5'
         }, 'fast');
 
@@ -30,6 +31,7 @@ $(function() {
           })
           .always(function() {
             location.href = url
+            $body.removeAttr('style');
           });
       }
     })
