@@ -11,19 +11,29 @@
 {% block main %}
 <div class="posts">
   {% for post in magazine.posts %}
+  {% set origin_url = '/posts/' + (post.post_id|string) %}
+  {% set url = post.post_content if post.post_category in ('recipe', 'recipe_list') else origin_url %}
   <div class="post">
     <div class="category">
       <img src="{{ post.category_icon }}" class="category-icon">
       <div class="category-name">{{ post.category }}</div>
     </div>
 
-    <a href="/posts/{{ post.post_id }}" class="cover">
+    <a class="cover"
+      href="{{ url }}"
+      data-origin-url="{{ origin_url }}"
+    >
       <div class="cover-filter"></div>
       <img src="{{ post.cover }}" />
     </a>
 
     <h2 class="title">
-      <a href="/posts/{{ post.post_id }}">{{ post.title }}</a>
+      <a
+        href="{{ url }}"
+        data-origin-url="{{ origin_url }}"
+      >
+        {{ post.title }}
+      </a>
     </h2>
 
     <div class="desc">{{ post.desc }}</div>
@@ -35,11 +45,29 @@
 {% endblock %}
 
 {% block js %}
-<script src='//apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js'></script>
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
-$('.cover > img').on('load', function() {
-  var that = this;
-  $(that).addClass('loaded');
-});
+$(document)
+  .on('load', '.cover > img', function(){
+    $(this).addClass('loaded');
+  })
+  .on('click', 'a', function(event){
+    var $this = $(this);
+    var url = $this.attr('href');
+    var origin_url = $this.data('origin-url');
+
+    if (origin_url !== url) {
+      event.preventDefault();
+
+      $.ajax({
+        type: 'head',
+        url: origin_url,
+        timeout: 500
+      })
+        .always(function() {
+          location.href= url
+        });
+    }
+  })
 </script>
 {% endblock %}
