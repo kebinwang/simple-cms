@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>{{ magazine.title }}</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/magazine.css')}}"/>
+{% endblock %}
+
+{% block main %}
+<div class="posts">
+  {% for post in magazine.posts %}
+  <div class="post">
+    <div class="category">
+      <img src="{{ post.category_icon }}" class="category-icon">
+      <div class="category-name">{{ post.category }}</div>
+    </div>
+
+    <a href="/posts/{{ post.id }}" class="cover">
+      <div class="cover-filter"></div>
+      <img src="{{ post.cover }}" />
+    </a>
+
+    <h2 class="title">
+      <a href="{{ post.title }}">{{ post.title }}</a>
+    </h2>
+
+    <div class="desc">{{ post.desc }}</div>
+
+    <div class="visits">阅读 {{ post.post_visits or 1000 }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block js %}
+<script src='//apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js'></script>
+<script>
+$('.cover > img').on('load', function() {
+  var that = this;
+  $(that).addClass('loaded');
+});
+</script>
+{% endblock %}

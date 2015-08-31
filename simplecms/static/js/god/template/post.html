@@ -1,0 +1,59 @@
+<a target="_blank" ng-if="!isCreatingNew" ng-href="/posts/{{postId}}">
+  <md-button class="md-fab post-view">
+    <div class="md-headline">►</div>
+  </md-button></a>
+<md-card>
+  <div layout="row" layout-align="center center" ng-if="!post" class="loading">
+    <md-progress-circular md-mode="indeterminate" class="md-warn md-hue-3"></md-progress-circular>
+  </div>
+
+  <form class="post-form" method="post" autocomplete="off" ng-submit="submit()" ng-if="post">
+    <md-input-container>
+      <label>文章标题</label>
+      <input type="text" ng-model="post.title"/>
+    </md-input-container>
+
+    <md-input-container>
+      <label>文章作者</label>
+      <input type="text" ng-model="post.author"/>
+    </md-input-container>
+
+    <md-input-container>
+      <label>文章类型</label>
+      <md-select ng-model="post.category">
+        <md-option value="normal">普通文章</md-option>
+        <md-option value="recipe">菜谱</md-option>
+        <md-option value="recipe_list">菜单</md-option>
+        <md-option value="source">通过源码发布文章</md-option>
+      </md-select>
+    </md-input-container>
+
+    <div ng-switch="post.category">
+      <md-input-container class="post-content"
+        ng-switch-when="normal">
+        <textarea class="ueditor" type="text" aria-label="文章内容" ng-model="post.content" config="config"></textarea>
+      </md-input-container>
+
+      <md-input-container class="post-content-source"
+        ng-switch-when="source">
+        <label>文章代码</label>
+        <textarea type="text" ng-model="post.content"></textarea>
+      </md-input-container>
+
+      <md-input-container
+        ng-switch-when="recipe">
+        <label>菜谱链接</label>
+        <input type="text" ng-model="post.content"/>
+      </md-input-container>
+
+      <md-input-container
+        ng-switch-when="recipe_list">
+        <label>菜单链接</label>
+        <input type="text" ng-model="post.content"/>
+      </md-input-container>
+    </div>
+
+    <md-button aria-label="保存" ng-bind="loading ? '保存中……' : '保存'" class="md-raised md-primary"></md-button>
+    <md-button type="button" aria-label="删除" ng-if="!isCreatingNew" ng-click="delPost()" class="md-raised md-warn">删除</md-button>
+  </form>
+</md-card>
