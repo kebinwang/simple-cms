@@ -16,11 +16,12 @@ app
           getMagazine(magazineId)
           .then(function(xhr) {
             $scope.magazine = xhr.data.content;
+            $scope.magazine.posts = $scope.magazine.posts.reverse();
           }),
 
           getPosts()
           .then(function(xhr) {
-            $scope.allPosts = xhr.data.content;
+            $scope.allPosts = xhr.data.content.reverse();
           })
         ])
         .catch(function(err) {
@@ -71,6 +72,8 @@ app
         }
       };
       $scope.publishPost = function(post) {
+        post.post_id = parseInt(post.post_id, 10);
+
         var promise = (post.id ?
           updateMagazinePost :
           createMagazinePost

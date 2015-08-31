@@ -46,11 +46,11 @@ app
   })
   .service('updateMagazinePost', function($http) {
     return function(magazine, post) {
-      console.log(post)
       post = _.pick(
         post,
-        'title', 'desc', 'cover', 'category', 'category_icon', 'post_id'
+        'id', 'title', 'desc', 'cover', 'category', 'category_icon', 'post_id'
       );
+
       return $http.post('/api/magazines/' + magazine.id + '/posts/' + post.id + '/update', post);
     };
   })

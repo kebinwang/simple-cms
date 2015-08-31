@@ -161,10 +161,10 @@ def magazines_mid_posts_id_delete(mid, id):
     magazine_post.delete_instance()
     return ok()
 
-@app.route('/magazines/<id>', methods=['GET'])
-def magazines_public(id):
+@app.route('/magazines/<mid>', methods=['GET'])
+def magazines_public(mid):
     try:
-        magazine = Magazine.get(Magazine.id == id)
+        magazine = Magazine.get(Magazine.id == mid)
     except Magazine.DoesNotExist:
         return error('magazine does not exist', 404)
 
