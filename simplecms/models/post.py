@@ -18,6 +18,9 @@ class Post(BaseModel):
     content = TextField()
     visits = IntegerField(default=0)
 
+    class Meta:
+        order_by = ('-create_time',)
+
     @classmethod
     def create_post(self, user_id, author_name, category, title, content):
         return Post.create(
