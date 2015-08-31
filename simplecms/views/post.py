@@ -79,6 +79,7 @@ def posts_id_delete(id):
     post.delete_instance()
     return ok()
 
+
 @app.route('/api/posts', methods=['GET'])
 @login_required
 def posts():
@@ -95,6 +96,7 @@ def posts_public(id):
 
     post.update_visits()
     return render_template('posts.html', post=post)
+
 
 @app.route('/god', methods=['GET'])
 def god():
