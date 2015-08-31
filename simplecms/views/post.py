@@ -74,6 +74,9 @@ def posts_id_delete(id):
     except Post.DoesNotExist:
         return error('post does not exist', 404)
 
+    if post.magazine_posts.count():
+        return error('存在关联的杂志引用，确定删除需要先删除关联的杂志引用')
+
     post.delete_instance()
     return ok()
 

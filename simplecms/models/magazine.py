@@ -32,7 +32,7 @@ class MagazinePost(BaseModel):
 
     user = ForeignKeyField(User)
     magazine = ForeignKeyField(Magazine, related_name='posts')
-    post = ForeignKeyField(Post)
+    post = ForeignKeyField(Post, related_name='magazine_posts')
     title = CharField(max_length=120)
     desc = CharField(max_length=400)
     cover = CharField(max_length=200)
