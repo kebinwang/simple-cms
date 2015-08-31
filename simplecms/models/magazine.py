@@ -39,6 +39,9 @@ class MagazinePost(BaseModel):
     category = CharField(max_length=200)
     category_icon = CharField(max_length=200)
 
+    class Meta:
+        order_by = ('-create_time',)
+
     @classmethod
     def create_magazine_post(self, user_id, magazine_id, post_id, title, desc,
                              cover, category, category_icon):
