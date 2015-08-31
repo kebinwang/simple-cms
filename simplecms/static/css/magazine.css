@@ -493,11 +493,6 @@ body {
 .title {
   padding: 0 15px;
   font-weight: normal;
-}
-.desc {
-  padding: 0 15px 18px 15px;
-}
-.title {
   margin: 18px 0 10px 0;
   font-size: 20px;
   line-height: 1;
@@ -508,8 +503,12 @@ body {
   display: block;
 }
 .desc {
+  padding: 0 15px 0 15px;
   color: #505044;
   font-size: 12px;
+}
+.visits {
+  padding: 4px 15px 18px 15px;
 }
 .cover img {
   width: 100%;

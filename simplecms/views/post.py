@@ -36,7 +36,7 @@ def posts_id(id):
         post = Post.get(id=id)
     except Post.DoesNotExist:
         return error('post does not exist', 404)
-    post.update_visits()
+    # post.update_visits()
     return ok(dump_post(post))
 
 

@@ -168,4 +168,4 @@ def magazines_public(mid):
     except Magazine.DoesNotExist:
         return error('magazine does not exist', 404)
 
-    return render_template('magazine.html', magazine=magazine)
+    return render_template('magazine.html', magazine=dump_magazine(magazine))

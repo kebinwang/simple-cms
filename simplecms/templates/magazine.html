@@ -28,7 +28,7 @@
 
     <div class="desc">{{ post.desc }}</div>
 
-    <div class="visits">{{ post.post_visits }} 阅读</div>
+    <div class="visits">阅读 {{ post.post_visits or 1000 }}</div>
   </div>
   {% endfor %}
 </div>
