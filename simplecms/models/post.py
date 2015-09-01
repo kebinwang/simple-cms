@@ -35,8 +35,8 @@ class Post(BaseModel):
         return Post.select()
 
     def update_visits(self):
-        self.visits += 1
-        self.save()
+        q = Post.update(visits=Post.visits + 1).where(Post.id == self.id)
+        q.execute()
 
     def update_post(self, author_name, category, title, content):
         self.author_name = author_name
