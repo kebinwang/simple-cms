@@ -35,8 +35,7 @@ app
         _.map($scope.magazine.posts, $scope.closePost);
         $scope.magazine.posts.unshift({
           opened: true,
-          category: '市集故事',
-          categoryIcon: 'http://static.xiachufang.com/upload/5883f5a0-4651-11e5-a7fe-c81f66ebffc0.png'
+          desc: ''
         });
       };
       $scope.editPost = function(post) {
@@ -86,14 +85,23 @@ app
           .then(function(){
             $route.reload()
           })
-          .catch(_.partial(toast, '发布失败……'));
+          .catch(function(e){
+            toast('发布失败……' + e.data.msg);
+          })
+          .catch(function(e){
+            toast('发布失败……');
+          });
       };
       $scope.syncPostTitle = function(post) {
-        if (!post.title && post.post_id) {
+        if (post.post_id) {
           _.attempt(function() {
-            post.title = _.find($scope.allPosts, {
+            var newPost = _.find($scope.allPosts, {
               id: parseInt(post.post_id, 10)
-            }).title;
+            });
+
+            post.title = post.title || newPost.title;
+            post.post_visits = newPost.visits;
+            post.post_id = newPost.id;
           })
         }
       };

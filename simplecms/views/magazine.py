@@ -88,7 +88,7 @@ def magazines_mid_posts_new(mid):
     category = json_data.get('category')
     category_icon = json_data.get('category_icon')
 
-    if not all((magazine_id, post_id, title, desc, cover,
+    if not all((magazine_id, post_id, title, cover,
                category, category_icon)):
         return error('没有提供所有参数')
 

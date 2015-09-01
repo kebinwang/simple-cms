@@ -70,6 +70,7 @@ def dump_magazine_post(magazine_post, mode='full'):
         r['magazine_id'] = magazine_post.magazine.id
         r['post_id'] = magazine_post.post.id
         r['post_visits'] = magazine_post.post.visits
+        r['post_category'] = magazine_post.post.category
         r['title'] = magazine_post.title
         r['desc'] = magazine_post.desc
         r['cover'] = magazine_post.cover
