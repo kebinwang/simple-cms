@@ -24,6 +24,7 @@
         <md-option value="normal">普通文章</md-option>
         <md-option value="recipe">菜谱</md-option>
         <md-option value="recipe_list">菜单</md-option>
+        <md-option value="event">话题</md-option>
         <md-option value="source">通过源码发布文章</md-option>
       </md-select>
     </md-input-container>
@@ -49,6 +50,12 @@
       <md-input-container
         ng-switch-when="recipe_list">
         <label>菜单链接</label>
+        <input type="text" ng-model="post.content"/>
+      </md-input-container>
+
+      <md-input-container
+        ng-switch-when="event">
+        <label>话题链接</label>
         <input type="text" ng-model="post.content"/>
       </md-input-container>
     </div>
