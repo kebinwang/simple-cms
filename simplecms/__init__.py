@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_login import LoginManager
 from playhouse.db_url import connect
+from raven.contrib.flask import Sentry
 
 from .config import Config
 
@@ -13,6 +14,8 @@ login_manager.init_app(app)
 
 database = connect(**app.config.get('DB_CONFIG'))
 
+if not app.config.get('DEBUG'):
+    sentry = Sentry(app)
 
 from simplecms.models.user import User
 
