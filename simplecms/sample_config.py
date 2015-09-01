@@ -26,7 +26,23 @@ class DevelopmentConfig(BaseConfig):
 
 
 class ProductionConfig(BaseConfig):
-    pass
+    SECRET_KEY = "don'ttellyou"
+
+    MYSQLHOST = "localhost"
+    MYSQLPASSWD = "xiachufang"
+    MYSQLUSER = "xiachufang"
+    MYSQLDB_NAME = "xiachufang"
+    MYSQL_DB_URL = "mysql://%s:%s@%s/%s" \
+                   % (MYSQLUSER, MYSQLPASSWD, MYSQLHOST, MYSQLDB_NAME)
+    DB_CHARSET = 'utf8mb4'
+    DB_URL = "mysql://%s:%s@%s/%s"\
+             % (MYSQLUSER, MYSQLPASSWD, MYSQLHOST, MYSQLDB_NAME)
+    DB_CONFIG = {
+        'url': DB_URL,
+        'charset': DB_CHARSET,
+    }
+
+    SENTRY_DSN = "***"
 
 
 Config = DevelopmentConfig
