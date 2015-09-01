@@ -508,6 +508,8 @@ body {
   font-size: 12px;
 }
 .visits {
+  color: #505044;
+  font-size: 12px;
   padding: 4px 15px 18px 15px;
 }
 .cover img {
