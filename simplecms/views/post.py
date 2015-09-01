@@ -1,4 +1,4 @@
-from flask import request, render_template
+from flask import request, render_template, redirect
 from flask_login import login_required, current_user
 
 from simplecms import app
@@ -95,4 +95,8 @@ def posts_public(id):
         return error('post does not exist', 404)
 
     post.update_visits()
-    return render_template('posts.html', post=post)
+
+    if post.category in ('recipe', 'recipe_list'):
+        return redirect(post.content)
+    else:
+        return render_template('posts.html', post=post)

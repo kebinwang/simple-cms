@@ -3,5 +3,6 @@ app
     getPosts()
       .then(function(xhr) {
         $scope.posts = xhr.data.content;
-      }, catchErr);
+      })
+      .catch(catchErr);
   })

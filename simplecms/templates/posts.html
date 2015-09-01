@@ -1,5 +1,23 @@
-{% if post.category in ('recipe','recipe_list') %}
-{% include "link_post.html" %}
-{% else %}
-{% include "normal_post.html" %}
-{% endif %}
+
+{% extends "layout.html" %}
+
+{% block title %}
+  <title>{{post.title}}</title>
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="//apps.bdimg.com/libs/typo.css/2.0/typo.min.css"/>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/posts.css')}}"/>
+{% endblock %}
+
+{% block main %}
+  <div class="post">
+    <h3 class="title">{{ post.title }}</h3>
+    <div class="view {{ 'immutable' if post.category == 'source' else '' }}">{{ post.content | safe }}</div>
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="{{url_for('static', filename='js/posts.js')}}"></script>
+{% endblock %}
