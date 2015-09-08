@@ -19,7 +19,7 @@ app
         style: 1,
         script: 1
       },
-      serverUrl: null,
+      serverUrl: '',
       enableAutoSave: false,
       // iframeCssUrl: '/static/css/posts.css',
       wordCount: false, //是否开启字数统计
