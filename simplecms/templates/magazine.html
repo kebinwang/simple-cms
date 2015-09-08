@@ -11,7 +11,7 @@
 {% block main %}
 <div class="posts">
   {% for post in magazine.posts %}
-  {% set origin_url = url_for('posts_public', id=post.post_id, _external=True) %}
+  {% set origin_url = 'http://simplecms.xiachufang.com/post/' + post.post_id %}
   {% set url = post.post_content if post.post_category in ('recipe', 'recipe_list') else origin_url %}
   <div class="post">
     <div class="category">
