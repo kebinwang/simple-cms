@@ -60,6 +60,7 @@ target/
 venv/
 config.py
 database_setup.py
+db_setup.py
 *.db
 .idea/
 .DS_Store
