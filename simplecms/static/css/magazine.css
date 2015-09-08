@@ -503,14 +503,15 @@ body {
   display: block;
 }
 .desc {
-  padding: 0 15px 0 15px;
+  /*padding: 0 15px 0 15px;*/
+  padding: 4px 15px 18px 15px;
   color: #505044;
   font-size: 12px;
 }
 .visits {
   color: #505044;
   font-size: 12px;
-  padding: 4px 15px 18px 15px;
+  /*padding: 4px 15px 18px 15px;*/
 }
 .cover img {
   width: 100%;
