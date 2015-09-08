@@ -433,7 +433,6 @@ body {
 }
 
 .posts {
-  max-width: 600px;
   margin: 0 auto;
   font-size: 14px;
   line-height: 1.6;
@@ -465,6 +464,7 @@ body {
 .cover {
   overflow: hidden;
   max-width: 100%;
+  height: 230px;
   position: relative;
 }
 .cover, .cover > img {
@@ -473,7 +473,7 @@ body {
   z-index: 0;
 }
 .cover > img {
-  opacity: 0;
+  /*opacity: 0;*/
   -webkit-transition: opacity .1s;
      -moz-transition: opacity .1s;
       -ms-transition: opacity .1s;
