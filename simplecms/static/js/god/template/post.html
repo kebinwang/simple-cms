@@ -63,7 +63,7 @@
       <md-input-container class="post-content-source"
         ng-switch-when="shop_notification">
         <label>商家通知</label>
-        <textarea type="text" ng-model="post.content"></textarea>
+        <textarea class="ueditor" type="text" aria-label="文章内容" ng-model="post.content" config="config"></textarea>
       </md-input-container>
     </div>
 
