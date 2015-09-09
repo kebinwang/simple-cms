@@ -12,7 +12,7 @@
 <div class="posts">
   {% for post in magazine.posts %}
   {% set origin_url = 'http://simplecms.xiachufang.com/posts/' + (post.post_id|string) %}
-  {% set url = post.post_content if post.post_category in ('recipe', 'recipe_list') else origin_url %}
+  {% set url = post.post_content if post.post_category in ('recipe', 'recipe_list', 'event') else origin_url %}
   <div class="post">
     <div class="category">
       <img src="{{ post.category_icon }}" class="category-icon">

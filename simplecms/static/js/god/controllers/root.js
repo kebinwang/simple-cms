@@ -6,6 +6,6 @@ app
       recipe_list: '菜单',
       event: '话题',
       source: '通过源码发布的文章',
-      notification: '商家通知'
+      shop_notification: '商家通知'
     };
   });
