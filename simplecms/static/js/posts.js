@@ -1,8 +1,8 @@
-$(function(){
+$(function() {
   var isColorBlack = function(rgbcolor) {
-    var distance = function(rgbArray){
-      return Math.pow(rgbArray[0], 2) + Math.pow(rgbArray[1], 2) + Math.pow(rgbArray[2], 2)
-    }
+    var distance = function(rgbArray) {
+      return Math.pow(rgbArray[0], 2) + Math.pow(rgbArray[1], 2) + Math.pow(rgbArray[2], 2);
+    };
     try {
       var rgb = rgbcolor.match(/\d+/g);
       return distance(rgb) <= distance([130, 130, 130]);
@@ -12,7 +12,10 @@ $(function(){
     }
   };
 
-  $('.view')
+  var $view = $('.view');
+
+  // 普通文章的格式化
+  $view
     .not('.immutable')
     .find('*')
     .each(function(index, el) {
@@ -33,8 +36,8 @@ $(function(){
       var hasColor = color && !isBlack && !isLink;
 
       var isLink = $el.is('a');
-      var isCenter = align == 'center';
-      var isRight = align == 'right';
+      var isCenter = align === 'center';
+      var isRight = align === 'right';
 
       // 移除所有没有字的空标签
       if (!hasText && !hasImg && !isImg) {
@@ -42,7 +45,7 @@ $(function(){
         return true;
       }
 
-      if(isMiniText && $el.closest('p').find('img').size() === 0) {
+      if (isMiniText && $el.closest('p').find('img').size() === 0) {
         $el.closest('p').addClass('top-25')
       }
 
@@ -63,4 +66,47 @@ $(function(){
         .addClass(isLink || isImg && !inLink ? 'img' : '')
         .removeAttr('style');
     });
+
+  // 源码类文章的处理
+  if ($view.is('.immutable')) {
+    $('img[usemap]').on('load', function() {
+
+      var $img = $(this),
+        container = $img.parent(),
+        wrap = container.parent(),
+        currentWidth = wrap.width();
+
+      container.css({
+        'max-width': ''
+      });
+
+      if (!$img.data('height')) {
+        container.css('overflow', '');
+        $img.data('width', $img.width());
+        $img.data('height', $img.height());
+      }
+
+      var nativeWidth = Number($img.data('width')),
+        nativeHeight = Number($img.data('height'));
+      var ratio = currentWidth / nativeWidth;
+      var targetHeight = nativeHeight * ratio;
+
+      container.css({
+        '-webkit-transform-origin': '0px 0px 0px',
+        'transform-origin': '0px 0px 0px',
+        '-webkit-transform': 'scale(' + ratio + ')',
+        'transform': 'scale(' + ratio + ')',
+        'height': targetHeight + 'px'
+      });
+
+    });
+
+    $view
+      .on('click', 'map area', function(e) {
+        if ('WebViewJavascriptBridge' in window) {
+          e.preventDefault();
+          WebViewJavascriptBridge.callHandler('openInNewView', $(this).attr('href'));
+        }
+      });
+  }
 });

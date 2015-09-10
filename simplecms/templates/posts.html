@@ -11,9 +11,13 @@
 {% endblock %}
 
 {% block main %}
+  {% set is_source = post.category == 'source' %}
   <div class="post">
+  	{% if not is_source: %}
     <h3 class="title">{{ post.title }}</h3>
-    <div class="view {{ 'immutable' if post.category == 'source' else '' }}">{{ post.content | safe }}</div>
+    {% endif %}
+
+    <div class="view {{ 'immutable' if is_source else '' }}">{{ post.content | safe }}</div>
   </div>
 {% endblock %}
 
