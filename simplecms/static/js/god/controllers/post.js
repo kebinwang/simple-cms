@@ -160,6 +160,17 @@ app
         });
     };
 
+    $scope.preview = function() {
+      var newWindow = open();
+      var $newBody = $(newWindow.document.body);
+      $newBody
+        .append('<link rel="stylesheet" href="http://apps.bdimg.com/libs/typo.css/2.0/typo.min.css"/>')
+        .append('<link rel="stylesheet" href="http://simplecms.xiachufang.com/static/css/posts.css"/>')
+        .append('<div class="post"><div class="view immutable">' + $scope.post.content + '</div></div>')
+        .append('<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>')
+        .append('<script src="http://simplecms.xiachufang.com/static/js/posts.js"></script>');
+    };
+
     $scope.submit = isCreatingNew ? $scope.createPost : $scope.editPost;
 
     if (isCreatingNew) {

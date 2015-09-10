@@ -120,11 +120,13 @@ body {
 
 .view.immutable * {
   max-width: none;
-  padding:0;
+  padding: 0;
   margin: 0;
   line-height: initial;
 }
-
+.view.immutable map {
+  line-height: 0;
+}
 .view.immutable img[usemap]{
   width: 100%;
 }

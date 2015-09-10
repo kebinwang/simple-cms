@@ -68,6 +68,7 @@
     </div>
 
     <md-button aria-label="保存" ng-bind="loading ? '保存中……' : '保存'" class="md-raised md-primary"></md-button>
+    <md-button aria-label="预览" class="md-raised" ng-if="post.category === 'source'" ng-click="preview()" type="button">预览</md-button>
     <md-button type="button" aria-label="删除" ng-if="!isCreatingNew" ng-click="delPost()" class="md-raised md-warn">删除</md-button>
   </form>
 </md-card>

@@ -69,37 +69,41 @@ $(function() {
 
   // 源码类文章的处理
   if ($view.is('.immutable')) {
-    $('img[usemap]').on('load', function() {
+    $(window)
+      .on('load', function() {
 
-      var $img = $(this),
-        container = $img.parent(),
-        wrap = container.parent(),
-        currentWidth = wrap.width();
+        $('img[usemap]').each(function(i, img) {
+          var $img = $(img),
+            container = $img.parent(),
+            wrap = container.parent(),
+            currentWidth = wrap.width();
 
-      container.css({
-        'max-width': ''
+          container.css({
+            'max-width': ''
+          });
+
+          if (!$img.data('height')) {
+            container.css('overflow', '');
+            $img.data('width', $img.width());
+            $img.data('height', $img.height());
+          }
+
+          var nativeWidth = Number($img.data('width')),
+            nativeHeight = Number($img.data('height'));
+          var ratio = currentWidth / nativeWidth;
+          var targetHeight = nativeHeight * ratio;
+
+          container.css({
+            '-webkit-transform-origin': '0px 0px 0px',
+            'transform-origin': '0px 0px 0px',
+            '-webkit-transform': 'scale(' + ratio + ')',
+            'transform': 'scale(' + ratio + ')',
+            'height': targetHeight + 'px',
+            'line-height': 0
+          });
+        });
+
       });
-
-      if (!$img.data('height')) {
-        container.css('overflow', '');
-        $img.data('width', $img.width());
-        $img.data('height', $img.height());
-      }
-
-      var nativeWidth = Number($img.data('width')),
-        nativeHeight = Number($img.data('height'));
-      var ratio = currentWidth / nativeWidth;
-      var targetHeight = nativeHeight * ratio;
-
-      container.css({
-        '-webkit-transform-origin': '0px 0px 0px',
-        'transform-origin': '0px 0px 0px',
-        '-webkit-transform': 'scale(' + ratio + ')',
-        'transform': 'scale(' + ratio + ')',
-        'height': targetHeight + 'px'
-      });
-
-    });
 
     $view
       .on('click', 'map area', function(e) {
