@@ -94,7 +94,10 @@ def posts_public(id):
     except Post.DoesNotExist:
         return error('post does not exist', 404)
 
-    post.update_visits()
+    print(post.category)
+
+    if post.category != 'source':
+        post.update_visits()
 
     if post.category in ('recipe', 'recipe_list'):
         return redirect(post.content)

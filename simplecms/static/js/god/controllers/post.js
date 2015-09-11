@@ -162,13 +162,33 @@ app
 
     $scope.preview = function() {
       var newWindow = open();
+      var isSource = $scope.post.category === 'source';
       var $newBody = $(newWindow.document.body);
+      var $title;
+      var $view = $((function(classNames) {
+        return '<div class="' + classNames + '">' + $scope.post.content +'</div>';
+      })('view ' + (isSource ? ' immutable' : '')))
+      var $post = $('<div class="post"></div>');
+
+      if (!isSource) {
+        $title = $('<h3 class="title">' + $scope.post.title + '</h3>');
+        $post.append($title);
+      }
+      $post.append($view);
+
       $newBody
         .append('<link rel="stylesheet" href="http://apps.bdimg.com/libs/typo.css/2.0/typo.min.css"/>')
         .append('<link rel="stylesheet" href="http://simplecms.xiachufang.com/static/css/posts.css"/>')
-        .append('<div class="post"><div class="view immutable">' + $scope.post.content + '</div></div>')
-        .append('<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>')
-        .append('<script src="http://simplecms.xiachufang.com/static/js/posts.js"></script>');
+        .append($post);
+
+      $(newWindow.document).ready(function() {
+        newWindow.$ = $;
+        newWindow.$.getScript('http://simplecms.xiachufang.com/static/js/posts.js');
+
+        var script = newWindow.document.createElement('script');
+        script.src = '//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js';
+        newWindow.document.body.appendChild(script);
+      });
     };
 
     $scope.submit = isCreatingNew ? $scope.createPost : $scope.editPost;
